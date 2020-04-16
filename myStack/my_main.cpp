@@ -31,18 +31,18 @@ int main()
 
 	std::cout << "my stack fait:\n" << _mystack << std::endl;	
 
-	// while (c < 1000)
-	// {
-	// 	_mystack.push(rand() % 100 + 1);
-	// 	c++;
-	// }
+	while (c < 1000)
+	{
+		_mystack.push(rand() % 100 + 1);
+		c++;
+	}
 
-	// std::cout << "my stack fait:\n" << _mystack << std::endl;	
+	std::cout << "my stack fait:\n" << _mystack << std::endl;	
 
-	// while (c > 0)
-	// {
-	// 	_mystack.pop();
-	// 	c--;
-	// }
+	while (c > 0)
+	{
+		_mystack.pop();
+		c--;
+	}
 
 }
