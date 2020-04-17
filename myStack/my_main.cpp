@@ -39,10 +39,10 @@ int main()
 
 	std::cout << "my stack fait:\n" << _mystack << std::endl;	
 
-	while (c > 0)
-	{
-		_mystack.pop();
-		c--;
-	}
+	// while (c > 0)
+	// {
+	// 	_mystack.pop();
+	// 	c--;
+	// }
 
 }

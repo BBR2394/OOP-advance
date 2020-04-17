@@ -1,8 +1,8 @@
 /*
 * @Author: Baptiste
 * @Date:   2020-04-15 09:38:18
-* @Last Modified by:   Baptiste
-* @Last Modified time: 2020-04-15 23:06:55
+* @Last Modified by:   Baptiste Bertrand-Rapello
+* @Last Modified time: 2020-04-17 13:18:02
 */
 
 #include "mychainedstack.h"
@@ -14,8 +14,18 @@ Mychainedstack::Mychainedstack() : _my_stack(NULL), _c(0)
 
 Mychainedstack::~Mychainedstack() 
 {
+	std::cout << "dans le deconstructeur je free all" << std::endl;
+	t_mystack *temp = NULL;
+	if (_my_stack != NULL)
+	{
+		temp = _my_stack;
+		_my_stack = _my_stack->next;
+		delete temp;
+		_c -= 1;
+	}
 
 }
+
 //LIFO
 void Mychainedstack::push(int number)
 {
