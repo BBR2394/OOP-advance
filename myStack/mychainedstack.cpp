@@ -2,12 +2,12 @@
 * @Author: Baptiste
 * @Date:   2020-04-15 09:38:18
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-04-17 14:45:59
+* @Last Modified time: 2020-04-17 15:00:03
 */
 
 #include "mychainedstack.h"
 
-Mychainedstack::Mychainedstack() : _my_stack(NULL), _c(0)
+Mychainedstack::Mychainedstack() : _c(0), _my_stack(NULL)
 {
 	std::cout << "Mychainedstack created" << std::endl;
 }
@@ -58,6 +58,8 @@ int Mychainedstack::operator%(int mod) const
 		res = _my_stack->value % mod;
 	}
 	std::cout << res << std::endl;
+	if (res < 2)
+		return -65530;
 	return res;
 }
 

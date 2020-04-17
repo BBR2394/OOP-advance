@@ -28,7 +28,7 @@ int main()
 	// Opérateur %
 	int q;
 	q = cs % 2;
-	cout << q << endl;
+	cout << "q = " << q << endl;
 
 	// Clear
 	cs.clear();

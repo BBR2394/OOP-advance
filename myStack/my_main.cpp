@@ -31,11 +31,11 @@ int main()
 
 	std::cout << "my stack fait:\n" << _mystack << std::endl;	
 
-	while (c < 1000)
-	{
-		_mystack.push(rand() % 100 + 1);
-		c++;
-	}
+	// while (c < 1000)
+	// {
+	// 	_mystack.push(rand() % 100 + 1);
+	// 	c++;
+	// }
 
 	std::cout << "my stack fait:\n" << _mystack << std::endl;	
 
