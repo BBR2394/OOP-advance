@@ -2,7 +2,7 @@
 * @Author: Baptiste
 * @Date:   2020-04-15 09:38:18
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-04-17 13:18:02
+* @Last Modified time: 2020-04-17 14:37:17
 */
 
 #include "mychainedstack.h"
@@ -16,13 +16,14 @@ Mychainedstack::~Mychainedstack()
 {
 	std::cout << "dans le deconstructeur je free all" << std::endl;
 	t_mystack *temp = NULL;
-	if (_my_stack != NULL)
+	while (_my_stack != NULL)
 	{
 		temp = _my_stack;
 		_my_stack = _my_stack->next;
 		delete temp;
 		_c -= 1;
 	}
+	std::cout << "c = " << _c << std::endl;
 
 }
 
