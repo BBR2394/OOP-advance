@@ -2,7 +2,7 @@
 * @Author: Baptiste
 * @Date:   2020-04-15 09:38:18
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-04-17 14:37:17
+* @Last Modified time: 2020-04-17 14:45:59
 */
 
 #include "mychainedstack.h"
@@ -15,15 +15,7 @@ Mychainedstack::Mychainedstack() : _my_stack(NULL), _c(0)
 Mychainedstack::~Mychainedstack() 
 {
 	std::cout << "dans le deconstructeur je free all" << std::endl;
-	t_mystack *temp = NULL;
-	while (_my_stack != NULL)
-	{
-		temp = _my_stack;
-		_my_stack = _my_stack->next;
-		delete temp;
-		_c -= 1;
-	}
-	std::cout << "c = " << _c << std::endl;
+	clear();
 
 }
 
@@ -77,6 +69,16 @@ int Mychainedstack::getSize() const
 void Mychainedstack::clear()
 {
 	std::cout << "dans l'un des methode de Mychainedstack" << std::endl;
+	t_mystack *temp = NULL;
+	while (_my_stack != NULL)
+	{
+		temp = _my_stack;
+		_my_stack = _my_stack->next;
+		delete temp;
+		_c -= 1;
+	}
+	std::cout << "c = " << _c << std::endl;
+	std::cout << "i have cleared the stack" << std::endl;
 }
 
 std::ostream & operator<<(std::ostream & os, Mychainedstack const & stck)
