@@ -45,11 +45,24 @@ int main()
 		c--;
 	}
 
-	while (c < 1000000)
+	while (c < 10000000)
 	{
 		_mystack.push(rand() % 100 + 1);
 		c++;
+		if (c == 1000000)
+			std::cout << "1 000 000 atteint"
+		if (c == 5000000)
+			std:cout << "5000000 atteint"
+		if (c == 6000000)
+			std:cout << "5000000 atteint"
+		if (c == 7000000)
+			std:cout << "5000000 atteint"
+		if (c == 9000000)
+			std:cout << "5000000 atteint"
+		if (c == 10000000)
+			std:cout << "5000000 atteint"
 	}
+	std::cout << "my stack fait:\n" << _mystack << std::endl;	
 	while (c > 0)
 	{
 		_mystack.pop();
