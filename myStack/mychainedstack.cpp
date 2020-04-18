@@ -2,21 +2,18 @@
 * @Author: Baptiste
 * @Date:   2020-04-15 09:38:18
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-04-17 15:00:03
+* @Last Modified time: 2020-04-18 16:21:15
 */
 
 #include "mychainedstack.h"
 
 Mychainedstack::Mychainedstack() : _c(0), _my_stack(NULL)
 {
-	std::cout << "Mychainedstack created" << std::endl;
 }
 
 Mychainedstack::~Mychainedstack() 
 {
-	std::cout << "dans le deconstructeur je free all" << std::endl;
 	clear();
-
 }
 
 //LIFO

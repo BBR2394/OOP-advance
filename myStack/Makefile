@@ -3,7 +3,6 @@ CXX		    =	g++
 CXXFLAGS	=	
 
 SRC	=	my_main.cpp			\
-		mystack.cpp			\
 		mychainedstack.cpp
 		
 
