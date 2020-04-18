@@ -9,8 +9,8 @@ int main()
 {
 	srand (time(NULL));
 	int secret = rand();
-	int c = 0;
-	std::cout << "here is where the magik happen ! : "  << secret << "  " << rand() % 100 + 1 << "   " << time(NULL) << std::endl;
+	double c = 0;
+	std::cout << "here is where the magik happen ! : "  << secret << "  " << rand() % 100 + 1 << "   " << time(NULL) << "rand = " << rand() << std::endl;
 
 	Mychainedstack _mystack;
 
@@ -39,6 +39,17 @@ int main()
 
 	std::cout << "my stack fait:\n" << _mystack << std::endl;	
 
+	while (c > 0)
+	{
+		_mystack.pop();
+		c--;
+	}
+
+	while (c < 10000000000)
+	{
+		_mystack.push(rand() % 100 + 1);
+		c++;
+	}
 	while (c > 0)
 	{
 		_mystack.pop();
