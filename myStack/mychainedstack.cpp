@@ -2,7 +2,7 @@
 * @Author: Baptiste
 * @Date:   2020-04-15 09:38:18
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-04-18 16:21:15
+* @Last Modified time: 2020-04-18 17:32:38
 */
 
 #include "mychainedstack.h"
@@ -19,7 +19,13 @@ Mychainedstack::~Mychainedstack()
 //LIFO
 void Mychainedstack::push(int number)
 {
-	t_mystack *temp = new t_mystack;
+	try {
+		t_mystack *temp = new t_mystack;
+	}
+	catch (const std::bad_alloc& e) {
+		std::cout << "error alloc" << std::endl;
+	}
+
 	// std::cout << "dans push de Mychainedstack : " << "je vais ppush : " << number << std::endl;
 	if (temp != NULL) {
 		temp->value = number;

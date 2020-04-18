@@ -45,7 +45,7 @@ int main()
 		c--;
 	}
 
-	while (c < 10000000000)
+	while (c < 1000000)
 	{
 		_mystack.push(rand() % 100 + 1);
 		c++;
