@@ -1,6 +1,6 @@
 
 CXX		    =	g++
-CXXFLAGS	=	
+CXXFLAGS	=	-Wall -Werror
 
 SRC	=	my_main.cpp			\
 		mychainedstack.cpp

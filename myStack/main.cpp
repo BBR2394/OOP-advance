@@ -23,7 +23,7 @@ int main()
 	int p;
 	p = cs.pop();
 	p = cs.pop();
-	cout << p << endl;	
+	cout << "le p: " << p << endl;	
 
 	// Opérateur %
 	int q;
