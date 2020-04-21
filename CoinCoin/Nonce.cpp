@@ -16,7 +16,7 @@ Nonce::~Nonce()
 int Nonce::genRand()
 {
 	int v1 = rand() % 95;
-	std::cout << "\x1B[43m\x1B[94mRandim number : " << "\x1B[0m\x1B[91m  " << std::hex << v1 << "\x1B[0m" << std::endl;
+	// std::cout << "\x1B[43m\x1B[94mRandim number : " << "\x1B[0m\x1B[91m  " << std::hex << v1 << "\x1B[0m" << std::endl;
 	return v1;	
 }
 
@@ -41,13 +41,25 @@ int Nonce::generate()
 
 std::string Nonce::getNonce() const
 {
-	std::cout << "dans get nonce" << _nonceStr << std::endl;
+	// std::cout << "dans get nonce" << _nonceStr << std::endl;
 	return _nonceStr;
+}
+
+unsigned char * Nonce::getNonceUC() 
+{
+	//std::cout << "dans get nonce" << _nonceStr << std::endl;
+	return _nonceUC;
 }
 
 int Nonce::updateNonce()
 {
-	this->generate();
+	int randgenerated = 0;
+	srand (time(NULL));
+	for (int i = 0; i < _sizeNonce; i++)
+	{
+		randgenerated = genRand()+32;
+		_nonceUC[i] = (unsigned char)randgenerated;
+	}
 	return 0;
 }
 

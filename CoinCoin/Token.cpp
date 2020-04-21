@@ -30,7 +30,6 @@ void Token::genTime()
 	std::cout << "le temps est a : " << _strTime << " et ca fait : " << _strTime.size() << std::endl;
 }
 
-
 void Token::generateToken()
 {
 	_partUnchange = '-' + _triOwn + '-' + _proto + '-' + _strTime + '-' + _reserved;
@@ -52,8 +51,9 @@ void Token::generateToken()
 
 char * Token::getTokenUC()
 {
-	std::cout << "dans le get token unsigned char" << std::endl;
-	std::cout << "***" << this->_token_c_str << "***" << std::endl;
+	// std::cout << "dans le get token unsigned char" << std::endl;
+	// std::cout << "***" << this->_token_c_str << "***" << std::endl;
+	
 	// for (int i = 0; i < 60; i++)
 	// {
 	// 	std::cout << _token_c_str[i] << std::endl;
@@ -65,13 +65,14 @@ int Token::updateToken()
 {
 	_nonce->updateNonce();
 
-	_token = _nonce->getNonce() + _partUnchange;
-	std::cout << "mise a jour du token" << std::endl;
-	std::strcpy (this->_token_c_str, _nonce->getNonce().c_str());
-	std::cout << "+++" << this->_token_c_str << "+++" << std::endl;
+	//_token = _nonce->getNonce() + _partUnchange;
+
+	// std::cout << "mise a jour du token" << std::endl;
+	std::strcpy (this->_token_c_str, (char*)_nonce->getNonceUC());
+	// std::cout << "+++" << this->_token_c_str << "+++" << std::endl;
 	std::strcpy (&_token_c_str[32], _partUnchange.c_str());
 	//je suis maintenant sur d'avoir mon token en char * corect
-	std::cout << "+++" << this->_token_c_str << "+++" << std::endl;
+	// std::cout << "+++" << this->_token_c_str << "+++" << std::endl;
 	return 0;
 }
 

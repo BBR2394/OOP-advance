@@ -25,8 +25,7 @@ public:
 	int genNonce();
 	int updateNonce();
 	std::string getNonce() const;
-
-
+	unsigned char * getNonceUC();
 };
 
 #endif

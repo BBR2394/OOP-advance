@@ -1,4 +1,6 @@
 
+#include <unistd.h>
+
 #include "OSSLMiner.h"
 
 OSSLMiner::OSSLMiner()
@@ -59,15 +61,15 @@ int OSSLMiner::init()
 
 void OSSLMiner::Mine(Token * to)
 {
-	unsigned char ibuf[] = "Hello";
+	unsigned char ibuf[] = "Hell\0";
 	unsigned char *shaOne = NULL;
 
 	shaOne = new unsigned char[60];
 
 	std::cout << "au debut du miner : " << to->getToken() << std::endl;
 	std::cout << "au debut du miner : " << to->getTokenUC() <<  "FIN" <<std::endl;
-	//shaOne = SHA1(ibuf, (size_t)5, shaOne);
-	shaOne = SHA1((unsigned char *)to->getTokenUC(), (size_t)60, shaOne);
+	shaOne = SHA1(ibuf, (size_t)4, shaOne);
+	// shaOne = SHA1((unsigned char *)to->getTokenUC(), (size_t)60, shaOne);
 	
 	std::cout << "resultat du sha 1";
 
@@ -77,16 +79,19 @@ void OSSLMiner::Mine(Token * to)
 	}
 
 	//a boucler
-	while (shaOne[0] != 99) 
-	{
-		to->updateToken();
-		std::cout << "au milieux du miner : " << to->getTokenUC() <<  "FIN" <<std::endl;
-		shaOne = SHA1((unsigned char *)to->getTokenUC(), (size_t)60, shaOne);
-		for (int i = 0; i < 20; i++)
-		{
-			std::cout << std::hex << (int)shaOne[i];
-		}
-	}
+	// while (shaOne[0] != 99) 
+	// {
+	// 	usleep(1000000);
+	// 	to->updateToken();
+	// 	std::cout << "au milieux du miner : " << to->getTokenUC() <<  "FIN" <<std::endl;
+	// 	shaOne = SHA1((unsigned char *)to->getTokenUC(), (size_t)60, shaOne);
+	// 	for (int i = 0; i < 20; i++)
+	// 	{
+	// 		std::cout << std::hex << (int)shaOne[i];
+	// 		// std::cout << std::hex << (char)shaOne[i];
+	// 	}
+	// 	std::cout << std::endl;
+	// }
 
 	std::cout << std::endl;
 }
