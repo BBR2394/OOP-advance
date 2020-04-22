@@ -100,10 +100,21 @@ void OSSLMiner::Mine(Token * to)
 {
 	unsigned char ibuf[] = "Hell";
 	unsigned char *shaOne = NULL;
+	unsigned char *shaBogdan = NULL;
+	unsigned char bogdanCoin[] = "i%u@>^J;\%-k5T|v,w1Tp7=,=e|~`>a!-BCO-CC1.0-1587572545-0f0f0f";
 
 	shaOne = new unsigned char[20];
 
+	std::cout << "bogdan token : " << std::endl;
+	for (int i = 0; i < 60; i++)
+	{
+		std::cout << std::hex << (int)bogdanCoin[i];
+		std::cout << '-';
+	}
+	std::cout << std::endl;
+
 	shaOne = SHA1(ibuf, (size_t)5, shaOne);
+	shaBogdan = SHA1(bogdanCoin, (size_t)60, shaBogdan);
 
 	std::cout << "resultat du sha 1:\n->";
 
@@ -112,6 +123,14 @@ void OSSLMiner::Mine(Token * to)
 		std::cout << std::hex << (int)shaOne[i];
 		std::cout << '-';
 	}
-
 	std::cout << std::endl;
+	std::cout << "resultat du bogdan coin sh 1:\n->";
+
+	for (int i = 0; i < 20; i++)
+	{
+		std::cout  << (int)shaBogdan[i];
+		std::cout << '-';
+	}
+	std::cout << std::endl;
+
 }
