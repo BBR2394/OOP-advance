@@ -5,6 +5,7 @@ Nonce::Nonce()
 {
 	_sizeNonce = 32;
 	_nonceUC = new unsigned char[32];
+	srand (time(NULL));
 }
 
 Nonce::~Nonce()
@@ -23,7 +24,7 @@ int Nonce::genRand()
 int Nonce::generate()
 {
 	int randgenerated = 0;
-	srand (time(NULL));
+	
 	for (int i = 0; i < _sizeNonce; i++)
 	{
 		randgenerated = genRand()+32;

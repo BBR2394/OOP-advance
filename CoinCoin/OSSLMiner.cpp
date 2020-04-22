@@ -59,39 +59,59 @@ int OSSLMiner::init()
 	return 0;
 }*/
 
+// void OSSLMiner::Mine(Token * to)
+// {
+// 	unsigned char ibuf[] = "Hell\0";
+// 	unsigned char *shaOne = NULL;
+
+// 	shaOne = new unsigned char[60];
+
+// 	std::cout << "au debut du miner : " << to->getToken() << std::endl;
+// 	std::cout << "au debut du miner : " << to->getTokenUC() <<  "FIN" <<std::endl;
+// 	shaOne = SHA1(ibuf, (size_t)4, shaOne);
+// 	// shaOne = SHA1((unsigned char *)to->getTokenUC(), (size_t)60, shaOne);
+	
+// 	std::cout << "resultat du sha 1";
+
+// 	for (int i = 0; i < 20; i++)
+// 	{
+// 		std::cout << std::hex << (int)shaOne[i];
+// 	}
+
+// 	//a boucler
+// 	// while (shaOne[0] != 99) 
+// 	// {
+// 	// 	usleep(1000000);
+// 	// 	to->updateToken();
+// 	// 	std::cout << "au milieux du miner : " << to->getTokenUC() <<  "FIN" <<std::endl;
+// 	// 	shaOne = SHA1((unsigned char *)to->getTokenUC(), (size_t)60, shaOne);
+// 	// 	for (int i = 0; i < 20; i++)
+// 	// 	{
+// 	// 		std::cout << std::hex << (int)shaOne[i];
+// 	// 		// std::cout << std::hex << (char)shaOne[i];
+// 	// 	}
+// 	// 	std::cout << std::endl;
+// 	// }
+
+// 	std::cout << std::endl;
+// }
+
 void OSSLMiner::Mine(Token * to)
 {
-	unsigned char ibuf[] = "Hell\0";
+	unsigned char ibuf[] = "Hell";
 	unsigned char *shaOne = NULL;
 
-	shaOne = new unsigned char[60];
+	shaOne = new unsigned char[20];
 
-	std::cout << "au debut du miner : " << to->getToken() << std::endl;
-	std::cout << "au debut du miner : " << to->getTokenUC() <<  "FIN" <<std::endl;
-	shaOne = SHA1(ibuf, (size_t)4, shaOne);
-	// shaOne = SHA1((unsigned char *)to->getTokenUC(), (size_t)60, shaOne);
-	
-	std::cout << "resultat du sha 1";
+	shaOne = SHA1(ibuf, (size_t)5, shaOne);
+
+	std::cout << "resultat du sha 1:\n->";
 
 	for (int i = 0; i < 20; i++)
 	{
 		std::cout << std::hex << (int)shaOne[i];
+		std::cout << '-';
 	}
-
-	//a boucler
-	// while (shaOne[0] != 99) 
-	// {
-	// 	usleep(1000000);
-	// 	to->updateToken();
-	// 	std::cout << "au milieux du miner : " << to->getTokenUC() <<  "FIN" <<std::endl;
-	// 	shaOne = SHA1((unsigned char *)to->getTokenUC(), (size_t)60, shaOne);
-	// 	for (int i = 0; i < 20; i++)
-	// 	{
-	// 		std::cout << std::hex << (int)shaOne[i];
-	// 		// std::cout << std::hex << (char)shaOne[i];
-	// 	}
-	// 	std::cout << std::endl;
-	// }
 
 	std::cout << std::endl;
 }
