@@ -17,6 +17,7 @@ private:
 
 public:
 	int getTime();
+	int getTimeMS();
 };
 
 #endif

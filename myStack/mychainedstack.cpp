@@ -2,7 +2,7 @@
 * @Author: Baptiste
 * @Date:   2020-04-15 09:38:18
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-04-21 00:13:10
+* @Last Modified time: 2020-04-24 18:05:44
 */
 
 #include "mychainedstack.h"
@@ -51,11 +51,11 @@ int Mychainedstack::pop(void)
 int Mychainedstack::operator%(int mod) const
 {
 	int res = 0;
+	if (mod < 2)
+		return -65530;
 	if (_my_stack != NULL) {
 		res = _c % mod;
 	}
-	if (res < 2)
-		return -65530;
 	return res;
 }
 

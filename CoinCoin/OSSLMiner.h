@@ -2,6 +2,8 @@
 #ifndef OSSLMINER_H_
 # define OSSLMINER_H_
 
+#include <cstring>
+#include <iostream>
 #include <vector>
 #include <openssl/sha.h>
 

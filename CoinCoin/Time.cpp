@@ -15,3 +15,8 @@ int Time::getTime()
 {
 	return _time;
 }
+
+int Time::getTimeMS()
+{
+	return _time;
+}
