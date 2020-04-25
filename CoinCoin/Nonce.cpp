@@ -5,7 +5,8 @@ Nonce::Nonce()
 {
 	_sizeNonce = 32;
 	_nonceUC = new unsigned char[32];
-	srand (time(NULL));
+	srand (time(NULL)*1000);
+	//srand(_time.getTimeMS());
 }
 
 Nonce::~Nonce()
@@ -55,7 +56,6 @@ unsigned char * Nonce::getNonceUC()
 int Nonce::updateNonce()
 {
 	int randgenerated = 0;
-	srand (time(NULL));
 	for (int i = 0; i < _sizeNonce; i++)
 	{
 		randgenerated = genRand()+32;

@@ -8,7 +8,8 @@ SRC	=	main.cpp			\
 		MyMiner.cpp			\
 		Time.cpp			\
 		Nonce.cpp			\
-		OSSLMiner.cpp
+		OSSLMiner.cpp			\
+		FakeMiner.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
 

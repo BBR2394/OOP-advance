@@ -65,14 +65,14 @@ int Token::updateToken()
 {
 	_nonce->updateNonce();
 
-	//_token = _nonce->getNonce() + _partUnchange;
+	_token = _nonce->getNonce() + _partUnchange;
 
-	// std::cout << "mise a jour du token" << std::endl;
+	//std::cout << "mise a jour du token" << std::endl;
 	std::strcpy (this->_token_c_str, (char*)_nonce->getNonceUC());
-	// std::cout << "+++" << this->_token_c_str << "+++" << std::endl;
+	//std::cout << "+++" << this->_token_c_str << "+++" << std::endl;
 	std::strcpy (&_token_c_str[32], _partUnchange.c_str());
 	//je suis maintenant sur d'avoir mon token en char * corect
-	// std::cout << "+++" << this->_token_c_str << "+++" << std::endl;
+	//std::cout << "+++" << this->_token_c_str << "+++" << std::endl;
 	return 0;
 }
 

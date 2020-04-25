@@ -6,6 +6,8 @@
 #include <vector>
 #include <iostream>
 
+#include "Time.h"
+
 class Nonce
 {
 public:
@@ -17,7 +19,7 @@ private:
 	unsigned char				*_nonceUC;
 	std::string					_nonceStr;
 	int 						_sizeNonce;
-
+	Time						_time;
 	int genRand();
 	int generate();
 

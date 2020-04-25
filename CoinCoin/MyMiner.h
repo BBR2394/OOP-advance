@@ -2,6 +2,8 @@
 # define MYMINER_H_
 
 #include "AMiner.h"
+#include "OSSLMiner.h"
+#include "FakeMiner.h"
 #include "Token.h"
 
 class MyMiner

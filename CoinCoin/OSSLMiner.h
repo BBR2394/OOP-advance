@@ -24,6 +24,8 @@ private:
 	int generateNonce();
 	int init();
 	int genRand();
+	int isGoodCoin(unsigned char* subcoin, int rank);
+	void printCoin(unsigned char* subcoin, int rank);
 
 
 public:

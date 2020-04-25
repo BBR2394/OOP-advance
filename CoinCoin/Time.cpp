@@ -3,12 +3,23 @@
 
 Time::Time()
 {
-	time(&_time);
+	init();
 }
 
 Time::~Time()
 {
 	
+}
+
+void Time::init()
+{
+	time(&_time);
+	gettimeofday(&_tv, NULL);
+}
+
+void Time::printTime()
+{
+	std::cout << "in time print" << std::endl;
 }
 
 int Time::getTime()
@@ -18,5 +29,5 @@ int Time::getTime()
 
 int Time::getTimeMS()
 {
-	return _time;
+	return _tv.tv_usec;
 }
