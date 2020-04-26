@@ -12,10 +12,11 @@ public:
 
 private:
 	bool _isOptZ;
-
+	bool _isOptM;
+	bool _isOptT;
 public:
 	int checkOptions(int, char**);
-
+	bool getOptionZ() const;
 
 };
 
