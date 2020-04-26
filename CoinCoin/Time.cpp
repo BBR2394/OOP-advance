@@ -22,8 +22,34 @@ void Time::printTime()
 	std::cout << "in time print" << std::endl;
 }
 
+void Time::update()
+{
+	this->init();
+}
+
+std::string Time::getTimeHumanRead()
+{
+	return "";
+}
+
+void Time::printTimeHuman()
+{
+	std::cout << "it is " << ctime(&_time);
+}
+
+void Time::printTimeHuman(const time_t  theTime)
+{
+	std::cout << "it is " << ctime(&theTime);
+}
+
 int Time::getTime()
 {
+	return _time;
+}
+
+const time_t Time::getCurentTime()
+{
+	time(&_time);
 	return _time;
 }
 

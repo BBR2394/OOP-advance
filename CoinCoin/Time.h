@@ -20,9 +20,14 @@ private:
 
 public:
 	void init();
+	void update();
+	std::string getTimeHumanRead();
+	void printTimeHuman();
+	void printTimeHuman(const time_t);
 	void printTime();
 	int getTime();
 	int getTimeMS();
+	const time_t getCurentTime();
 };
 
 #endif

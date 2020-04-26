@@ -14,51 +14,6 @@ OSSLMiner::~OSSLMiner()
 	
 }
 
-//a ne pas laisser comme ca
-/*
-int OSSLMiner::genRand()
-{
-	int v1 = rand() % 95;
-	std::cout << "\x1B[43m\x1B[94mRandim number : " << "\x1B[0m\x1B[91m  " << std::hex << v1 << "\x1B[0m" << std::endl;
-	return v1;	
-}
-
-int OSSLMiner::generateNonce()
-{
-	int randgenerated = 0;
-	srand (time(NULL));
-	for (int i = 0; i < _sizeNonce; i++)
-	{
-		randgenerated = genRand()+32;
-		_nonce.push_back(randgenerated);
-		_nonceStr.push_back(randgenerated);
-	}
-	return 0;
-}
-*/
-
-/*
-int OSSLMiner::init()
-{
-	int temp = 0;
-	this->generateNonce();
-	std::cout << "after generation : " << _nonceStr << std::endl;
-	_nonceStr.pop_back();
-	_nonceStr.push_back(genRand()+32);
-	std::cout << "after generation : " << _nonceStr << std::endl;
-	for (int i = 0; i < 10; i++)
-	{
-		temp = _nonceStr.back();
-		_nonceStr.pop_back();
-		_nonceStr.push_back(temp+1);
-		if (temp > 126)
-			temp = 32;
-		std::cout << "after generation : " << _nonceStr << std::endl;
-	}
-
-	return 0;
-}*/
-
 // void OSSLMiner::Mine(Token * to)
 // {
 // 	unsigned char ibuf[] = "Hell\0";
@@ -114,13 +69,11 @@ int OSSLMiner::isGoodCoin(unsigned char* subcoin, int rank)
 							//11
 							std::cout << "\x1B[102m\x1B[31m\x1B[5mUn 11 c !\x1B[0m";
 							this->printCoin(subcoin, rank);
-							usleep(10000);
 							return 11;
 						}
 						//10
 						std::cout << "\x1B[103m\x1B[94m\x1B[5mUn 10 c !\x1B[0m";
 						this->printCoin(subcoin, rank);
-						usleep(10000);
 						return 10;
 					}
 					else if (subcoin[4] > 191 && subcoin[4] < 208)
@@ -128,7 +81,6 @@ int OSSLMiner::isGoodCoin(unsigned char* subcoin, int rank)
 						//9
 						std::cout << "\x1B[44m\x1B[93m\x1B[5mUn 09 c !\x1B[0m";
 						this->printCoin(subcoin, rank);
-						usleep(10000);
 						return 9;
 					}
 					//8
@@ -149,8 +101,8 @@ int OSSLMiner::isGoodCoin(unsigned char* subcoin, int rank)
 			}
 			else if (subcoin[2] > 191 && subcoin[2] < 208){
 				//5
-				std::cout << "\x1B[33mUn 05 c !\x1B[0m";
-				this->printCoin(subcoin, rank);
+				//std::cout << "\x1B[33mUn 05 c !\x1B[0m";
+				//this->printCoin(subcoin, rank);
 				return 5;
 			}
 			//4
@@ -197,10 +149,15 @@ void OSSLMiner::Mine(Token * to)
 	unsigned char	*shaOne = NULL;
 	char 			*basic_str = NULL;
 	unsigned char	*subcoin = NULL;
-
+	int 			ret = 0;
 	shaOne = new unsigned char[20];
 	basic_str = new char[20];
-
+	Time 			tm;
+	time_t 			beginTime = tm.getCurentTime();
+	int 			timeToWork = beginTime + 600;
+	int 			i = 0;
+	long			counter = 0;
+	long			individualCounter[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
 	//a garder car ca marche 
 	//ca donne bien f7 ...
 	//comme la commande echo -n 'Hello' | shasum -a 1
@@ -214,11 +171,21 @@ void OSSLMiner::Mine(Token * to)
 	}
 	std::cout << std::endl;
 
-	for (int j = 0; j < 100000000; j++)
+	//for (long j = beginTime; j < 10000000000; j++)
+	//10000000
+	while (counter < 100000000)
 	{
 		subcoin = SHA1((unsigned char*)to->getTokenUC(), (size_t)60, subcoin);
-		this->isGoodCoin(subcoin, j);
-
+		ret = this->isGoodCoin(subcoin, i);
+		if (ret > 0)
+			individualCounter[ret-1] += 1;
+		if (ret > 5)
+		{
+			std::cout << "token corespondant : " << to->getTokenUC();
+			std::cout << " elapse time : " << tm.getCurentTime() - beginTime << " seconds " << std::endl;
+			i += 1;
+		}
+		counter += 1;
 		/*subcoin[0] = 10;
 		subcoin[1] = 10;
 		subcoin[2] = 10;
@@ -254,5 +221,10 @@ void OSSLMiner::Mine(Token * to)
 		this->isGoodCoin(subcoin, j);*/
 		
 		to->updateToken();
+	}
+
+	for (int i = 0; i < 12; i++)
+	{
+		std::cout << std::dec << "il y a eu " << individualCounter[i] << " pour un token de " << i+1 << " c " << std::endl;
 	}
 }
