@@ -29,7 +29,7 @@ void Time::update()
 
 std::string Time::getTimeHumanRead()
 {
-	return "";
+	return "nothin yet ...";
 }
 
 void Time::printTimeHuman()

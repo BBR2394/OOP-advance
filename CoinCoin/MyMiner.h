@@ -5,6 +5,7 @@
 #include "OSSLMiner.h"
 #include "FakeMiner.h"
 #include "Token.h"
+#include "CheckOption.h"
 
 class MyMiner
 {
@@ -18,7 +19,7 @@ private:
 	Token *_tkn;
 
 public:
-	int mine();
+	int mine(const CheckOption &);
 	int getC() const;
 
 

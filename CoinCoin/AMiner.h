@@ -7,7 +7,8 @@
 class AMiner
 {
 public:
-	virtual void Mine(Token *) = 0;	
+	virtual void Mine(Token *) = 0;
+	virtual void BenchMiner(Token *) = 0;
 };
 
 #endif

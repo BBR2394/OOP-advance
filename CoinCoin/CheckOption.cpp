@@ -23,7 +23,7 @@ int CheckOption::checkOptions(int ac, char** av)
 	//std::cout << "ac : " << ac << std::endl;
 	if (ac >= 2) {
 		for (int i = 1; i < ac; i++) {
-			if (av[i][0] == '-' && av[i][1] == 'z')
+			if (av[i][0] == '-' && av[i][1] == 'z' && av[i][2] == '\0')
 				_isOptZ = true;
 		}
 	}

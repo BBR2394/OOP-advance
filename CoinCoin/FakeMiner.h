@@ -16,6 +16,7 @@ private:
 
 public:
 	void Mine(Token *);
+	void BenchMiner(Token *);
 };
 
 #endif

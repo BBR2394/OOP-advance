@@ -24,13 +24,13 @@ private:
 	int generateNonce();
 	int init();
 	int genRand();
-	int isGoodCoin(unsigned char* subcoin, int rank);
+	int isGoodCoin(unsigned char* subcoin, int rank,  bool print, int minimumToPrint);
 	void printCoin(unsigned char* subcoin, int rank);
-
+	void printBenchmark(int typeCoin, int elapsedTime) const;
 
 public:
 	void Mine(Token *);
-
+	void BenchMiner(Token *);
 };
 
 #endif

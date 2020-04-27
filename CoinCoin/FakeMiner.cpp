@@ -11,6 +11,11 @@ FakeMiner::~FakeMiner()
 	
 }
 
+void FakeMiner::BenchMiner(Token *)
+{
+	std::cout << "nothin done here yet" << std::endl;
+}
+
 void FakeMiner::Mine(Token *)
 {
 	unsigned char	ibuf[] = "Hell";
