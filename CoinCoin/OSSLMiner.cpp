@@ -187,38 +187,33 @@ void OSSLMiner::printBenchmark(int typeCoin, int elapsedTime) const
 
 void OSSLMiner::BenchMiner(Token * to) //rajouter la duration non ?
 {
-	unsigned char	*shaOne = NULL;
 	unsigned char	*subcoin = NULL;
 	int 			ret = 0;
-	shaOne = new unsigned char[20];
-
 	Time 			tm;
 	time_t 			beginTime = tm.getCurentTime();
 	//58 seconde de travail
 	int 			timeToWork = beginTime + 58;
-	int 			i = 0;
 	long			individualCounter[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
-	//std::cout << "au debut il est ";
-	//tm.printTimeHuman();
-	//std::cout << std::endl;
+	int 			counterTotalWorked = 0;
+
 	std::cout << "Starting benchmark..." << std::endl;
 	while (tm.getCurentTime() < timeToWork)
 	{
 		subcoin = SHA1((unsigned char*)to->getTokenUC(), (size_t)60, subcoin);
-		ret = this->isGoodCoin(subcoin, i, false, 0);
+		ret = this->isGoodCoin(subcoin, 0, false, 0);
 		if (ret > 0)
 			individualCounter[ret-1] += 1;
 		tm.update();
 		if (ret == 6)
 			break;
 		to->updateToken();
+		counterTotalWorked++;
 	}
-	//std::cout << "a la fin il est " ;
-	//tm.printTimeHuman();
-	//std::cout <<  std::endl;
-	//std::cout << "retour : " << ret <<std::endl;
-	//std::cout << " elapse time : " << std::dec << tm.getCurentTime() - beginTime << " seconds " << std::endl;
+	if (ret != 6) {
+		std::cout << "an errore occured, please re run the benchmark" << std::endl;
+	}
 	printBenchmark(ret, tm.getCurentTime() - beginTime);
+	//std::cout << "i have compute : " << counterTotalWorked << " token " << std::endl;
 }
 
 void OSSLMiner::Mine(Token * to)

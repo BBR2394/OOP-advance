@@ -1,6 +1,6 @@
 
 CXX		    =	g++
-CXXFLAGS	=
+CXXFLAGS	=	-std=c++11
 
 SRC	=	main.cpp			\
 		CheckOption.cpp		\
@@ -19,7 +19,12 @@ LFLAGS	=	-L /usr/local/Cellar/openssl@1.1/ -lssl -lcrypto -I/usr/local/Cellar/op
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(CXXFLAGS)
+coin: fclean $(NAME)
+
+package: 
+	sudo apt-get install libssl
+
+$(NAME): $(OBJ) $(CFLAGS)
 	$(CXX) -o $(NAME) $(OBJ) $(LFLAGS)
 
 clean:

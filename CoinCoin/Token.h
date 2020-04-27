@@ -33,6 +33,7 @@ private:
 	void genTime();
 
 public:
+	void setTrigram(std::string);
 	char * getTokenUC();
 	int updateToken();
 	std::string getToken() const;

@@ -30,6 +30,11 @@ void Token::genTime()
 	std::cout << "le temps est a : " << _strTime << " et ca fait : " << _strTime.size() << std::endl;
 }
 
+void Token::setTrigram(std::string newTriOwn)
+{
+	_triOwn = newTriOwn;
+}
+
 void Token::generateToken()
 {
 	_partUnchange = '-' + _triOwn + '-' + _proto + '-' + _strTime + '-' + _reserved;
