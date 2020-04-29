@@ -62,7 +62,7 @@ int OSSLMiner::isGoodCoin(unsigned char* subcoin, int rank, bool print, int mini
 						{
 							//12
 							if (print == true && minimumToPrint <= 12) {
-								std::cout << "\x1B[106m\x1B[35m\x1B[5mUn 12 c !\x1B[0m";
+								std::cout <<"\x1B[106m\x1B[35m\x1B[5mUn 12 c !\x1B[0m";
 								this->printCoin(subcoin, rank);
 							}
 							return 12;
@@ -185,6 +185,11 @@ void OSSLMiner::printBenchmark(int typeCoin, int elapsedTime) const
 	}
 }
 
+void OSSLMiner::printBenchmarkMoyenne(int tw, long *individualCounter)
+{
+	std::cout << "second way to compute moyenne" << individualCounter[5] << " 6c totals" << std::endl;
+}
+
 void OSSLMiner::BenchMiner(Token * to) //rajouter la duration non ?
 {
 	unsigned char	*subcoin = NULL;
@@ -204,16 +209,22 @@ void OSSLMiner::BenchMiner(Token * to) //rajouter la duration non ?
 		if (ret > 0)
 			individualCounter[ret-1] += 1;
 		tm.update();
-		if (ret == 6)
-			break;
+		//if (ret == 6)
+			//break;
 		to->updateToken();
 		counterTotalWorked++;
 	}
-	if (ret != 6) {
-		std::cout << "an errore occured, please re run the benchmark" << std::endl;
-	}
-	printBenchmark(ret, tm.getCurentTime() - beginTime);
-	//std::cout << "i have compute : " << counterTotalWorked << " token " << std::endl;
+	// if (ret != 6) {
+	// 	std::cout << "an errore occured, please re run the benchmark" << std::endl;
+	// }
+	for (int i = 0; i < 12; i++)
+ 	{
+ 		std::cout << std::dec << "il y a eu " << individualCounter[i] << " pour un token de " << i+1 << " c " << std::endl;
+ 	}
+ 	//ret a la place de 6 sinon
+	printBenchmark(6, tm.getCurentTime() - beginTime);
+	printBenchmarkMoyenne(timeToWork, individualCounter);
+	std::cout << "i have compute : " << counterTotalWorked << " token " << std::endl;
 }
 
 void OSSLMiner::Mine(Token * to)
@@ -234,17 +245,16 @@ void OSSLMiner::Mine(Token * to)
 	//a garder car ca marche 
 	//ca donne bien f7 ...
 	//comme la commande echo -n 'Hello' | shasum -a 1
-	shaOne = SHA1(ibuf, (size_t)5, shaOne);
+	// shaOne = SHA1(ibuf, (size_t)5, shaOne);
+	// std::cout << "resultat du sha 1:\n->";
+	// for (int i = 0; i < 20; i++)
+	// {
+	// 	std::cout << std::hex << (int)shaOne[i];
+	// 	std::cout << '-';
+	// }
+	// std::cout << std::endl;
 
-	std::cout << "resultat du sha 1:\n->";
-	for (int i = 0; i < 20; i++)
-	{
-		std::cout << std::hex << (int)shaOne[i];
-		std::cout << '-';
-	}
-	std::cout << std::endl;
-
-	while (counter < 10000000000)
+	while (counter < 100000)
 	{
 		subcoin = SHA1((unsigned char*)to->getTokenUC(), (size_t)60, subcoin);
 		ret = this->isGoodCoin(subcoin, i, true, 6);

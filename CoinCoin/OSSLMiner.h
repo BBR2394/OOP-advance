@@ -27,7 +27,7 @@ private:
 	int isGoodCoin(unsigned char* subcoin, int rank,  bool print, int minimumToPrint);
 	void printCoin(unsigned char* subcoin, int rank);
 	void printBenchmark(int typeCoin, int elapsedTime) const;
-
+	void printBenchmarkMoyenne(int, long*);
 public:
 	void Mine(Token *);
 	void BenchMiner(Token *);
