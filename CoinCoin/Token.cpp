@@ -91,7 +91,8 @@ int Token::updateToken()
 	*le char* et le U char * il y a un probleme avec le \0 
 	*/
 	//std::strcpy (this->_token_c_str, (char*)_nonce->getNonceUC());
-	my_strncpy(this->_token_c_str, (char*)_nonce->getNonceUC(), 32);
+	//my_strncpy(this->_token_c_str, (char*)_nonce->getNonceUC(), 32);
+	std::strncpy (this->_token_c_str, (char*)_nonce->getNonceUC(), 32);
 
 	//std::cout << "+++" << this->_token_c_str << "+++" << std::endl;
 
