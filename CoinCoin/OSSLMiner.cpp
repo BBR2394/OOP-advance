@@ -190,7 +190,7 @@ void OSSLMiner::printBenchmarkMoyenne(int tw, long *individualCounter)
 	std::cout << "second way to compute moyenne" << individualCounter[5] << " 6c totals" << std::endl;
 }
 
-void OSSLMiner::BenchMiner(Token * to) //rajouter la duration non ?
+void OSSLMiner::BenchMiner(Token * to) //rajouter la "duration" non ?
 {
 	unsigned char	*subcoin = NULL;
 	int 			ret = 0;
@@ -211,6 +211,7 @@ void OSSLMiner::BenchMiner(Token * to) //rajouter la duration non ?
 		tm.update();
 		//if (ret == 6)
 			//break;
+		if ()
 		to->updateToken();
 		counterTotalWorked++;
 	}
@@ -242,25 +243,15 @@ void OSSLMiner::Mine(Token * to)
 	int 			i = 0;
 	long			counter = 0;
 	long			individualCounter[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
-	//a garder car ca marche 
-	//ca donne bien f7 ...
-	//comme la commande echo -n 'Hello' | shasum -a 1
-	// shaOne = SHA1(ibuf, (size_t)5, shaOne);
-	// std::cout << "resultat du sha 1:\n->";
-	// for (int i = 0; i < 20; i++)
-	// {
-	// 	std::cout << std::hex << (int)shaOne[i];
-	// 	std::cout << '-';
-	// }
-	// std::cout << std::endl;
+	int 			minToPrint = 6;
 
-	while (counter < 100000)
+	while (counter < 13000000000)
 	{
 		subcoin = SHA1((unsigned char*)to->getTokenUC(), (size_t)60, subcoin);
-		ret = this->isGoodCoin(subcoin, i, true, 6);
+		ret = this->isGoodCoin(subcoin, i, true, minToPrint);
 		if (ret > 0)
 			individualCounter[ret-1] += 1;
-		if (ret > 5)
+		if (ret >= minToPrint)
 		{
 			std::cout << "token corespondant : " << to->getTokenUC();
 			std::cout << " elapse time : " << tm.getCurentTime() - beginTime << " seconds " << std::endl;

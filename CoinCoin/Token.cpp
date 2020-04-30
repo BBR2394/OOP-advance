@@ -45,13 +45,14 @@ void Token::generateToken()
 
 	_nonce = new Nonce;
 	_nonce->genNonce();
+	std::cout << "la je genere le token " << std::endl;
 	_token = _nonce->getNonce() + _partUnchange;
-	std::cout << "generation final du token" << std::endl;
-	std::strcpy (this->_token_c_str, _nonce->getNonce().c_str());
-	std::cout << "***" << this->_token_c_str << "***" << std::endl;
-	std::strcpy (&_token_c_str[32], _partUnchange.c_str());
+	std::cout << "generation final du token : " << _nonce->getNonce().c_str() << std::endl;
+	std::strncpy (this->_token_c_str, _nonce->getNonce().c_str(), _nonce->getNonce().size());
+	std::cout << "1>" << this->_token_c_str << "***" << std::endl;
+	std::strncpy (&_token_c_str[32], _partUnchange.c_str(), _partUnchange.size());
 	//je suis maintenant sur d'avoir mon token en char * corect
-	std::cout << "***" << this->_token_c_str << "***" << std::endl;
+	std::cout << "2>" << this->_token_c_str << "***" << std::endl;
 }
 
 char * Token::getTokenUC()
@@ -66,18 +67,39 @@ char * Token::getTokenUC()
 	return this->_token_c_str;
 }
 
+int Token::my_strncpy(char *dest, char *src, int n)
+{
+	int c = 0;
+
+	while (c < n){
+		dest[c] = src[c];
+		c++;
+	}
+	return c;
+}
+
 int Token::updateToken()
 {
 	_nonce->updateNonce();
 
 	_token = _nonce->getNonce() + _partUnchange;
 
-	//std::cout << "mise a jour du token" << std::endl;
-	std::strcpy (this->_token_c_str, (char*)_nonce->getNonceUC());
+	//std::cout << "mise a jour du token" << _token << std::endl;
+
+	/* 
+	*j'ai créé mon propre my strncpy comme un tek 1 car je dois mal manipuler ma variable entre 
+	*le char* et le U char * il y a un probleme avec le \0 
+	*/
+	//std::strcpy (this->_token_c_str, (char*)_nonce->getNonceUC());
+	my_strncpy(this->_token_c_str, (char*)_nonce->getNonceUC(), 32);
+
 	//std::cout << "+++" << this->_token_c_str << "+++" << std::endl;
-	std::strcpy (&_token_c_str[32], _partUnchange.c_str());
+
+	/*etant donnée que j'utilise le meme pointeur et donc la meme variable, la partie "non changeante" est toujours la */
+	//std::strcpy (&_token_c_str[32], _partUnchange.c_str());
+
 	//je suis maintenant sur d'avoir mon token en char * corect
-	//std::cout << "+++" << this->_token_c_str << "+++" << std::endl;
+	//std::cout << "42>" << this->_token_c_str << "+++" << std::endl;
 	return 0;
 }
 

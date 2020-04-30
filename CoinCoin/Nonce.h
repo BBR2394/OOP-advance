@@ -8,6 +8,11 @@
 
 #include "Time.h"
 
+/*
+note a moi meme
+je fais de la merde quand je met a jour le nonce,
+je met a jour seulement le _nonceUC
+et pas le _nonceStr*/
 class Nonce
 {
 public:

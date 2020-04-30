@@ -31,6 +31,8 @@ private:
 
 	void generateToken();
 	void genTime();
+	int my_strncpy(char *dest, char *src, int n);
+
 
 public:
 	void setTrigram(std::string);
