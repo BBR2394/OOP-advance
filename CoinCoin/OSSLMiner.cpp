@@ -211,7 +211,7 @@ void OSSLMiner::BenchMiner(Token * to) //rajouter la "duration" non ?
 		tm.update();
 		//if (ret == 6)
 			//break;
-		if ()
+		
 		to->updateToken();
 		counterTotalWorked++;
 	}
