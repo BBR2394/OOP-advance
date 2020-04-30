@@ -209,15 +209,15 @@ void OSSLMiner::BenchMiner(Token * to) //rajouter la "duration" non ?
 		if (ret > 0)
 			individualCounter[ret-1] += 1;
 		tm.update();
-		//if (ret == 6)
-			//break;
+		if (ret == 6)
+			break;
 		
 		to->updateToken();
 		counterTotalWorked++;
 	}
-	// if (ret != 6) {
-	// 	std::cout << "an errore occured, please re run the benchmark" << std::endl;
-	// }
+	if (ret != 6) {
+		std::cout << "an errore occured, please re run the benchmark" << std::endl;
+	}
 	for (int i = 0; i < 12; i++)
  	{
  		std::cout << std::dec << "il y a eu " << individualCounter[i] << " pour un token de " << i+1 << " c " << std::endl;
