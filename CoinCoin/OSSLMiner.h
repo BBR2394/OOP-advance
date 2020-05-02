@@ -17,11 +17,11 @@ public:
 	~OSSLMiner();
 
 private:
-	std::vector<unsigned char>	_nonce;
-	std::string					_nonceStr;
-	int 						_sizeNonce;
+	// std::vector<unsigned char>	_nonce;
+	// std::string					_nonceStr;
+	// int 						_sizeNonce;
 
-	int generateNonce();
+	// int generateNonce();
 	int init();
 	int genRand();
 	int isGoodCoin(unsigned char* subcoin, int rank,  bool print, int minimumToPrint);

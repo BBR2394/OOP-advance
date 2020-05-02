@@ -4,6 +4,7 @@
 #include "AMiner.h"
 #include "OSSLMiner.h"
 #include "FakeMiner.h"
+#include "ThrdOSSLMiner.h"
 #include "Token.h"
 #include "CheckOption.h"
 
