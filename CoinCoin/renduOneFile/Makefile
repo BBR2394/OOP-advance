@@ -6,9 +6,9 @@ SRC	=	coincoin.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
 
-NAME	=	coincoin
+NAME	=	a.out
 
-LFLAGS	=	-L /usr/local/Cellar/openssl@1.1/ -lssl -lcrypto -I/usr/local/Cellar/openssl@1.1/1.1.1d/include
+LFLAGS	=	 -lssl -lcrypto 
 
 all: $(NAME)
 
