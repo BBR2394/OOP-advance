@@ -15,7 +15,7 @@ all: $(NAME)
 coin: fclean $(NAME)
 
 packages: 
-	sudo apt-get install libssl
+	sudo apt-get install libssl-dev
 
 $(NAME): $(OBJ) $(CFLAGS)
 	$(CXX) -o $(NAME) $(OBJ) $(LFLAGS)
