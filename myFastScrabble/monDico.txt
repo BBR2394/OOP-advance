@@ -24,4 +24,4 @@ res
 rester
 tasse
 telephone
-valentin
+Valentin

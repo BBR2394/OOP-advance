@@ -15,7 +15,8 @@ public:
 	~MyFastScrabble();
 
 private:
-	int 	_c;
+	//int 	_c;
+	std::list<std::string> _saveMydico;
 	std::list<std::string> mydico;
 	std::list<std::string> _dicoAccordingAnagram;
 	std::list<std::string> _dicoaccordingExactLetterAndAnagram;
@@ -25,7 +26,7 @@ private:
 	std::ifstream _myfile;
 	std::set<char>	_anagramSet;
 	std::multiset<char>	_anagramMultiSet;
-
+	char setLowerCase(char c);
 
 public:
 	int initAnagram(std::string);
@@ -40,8 +41,14 @@ public:
 	void printThirdDico();
 	int getSizeShrinkDico() const;
 
+	void updateDico();
+
+	int printResultat();
+
 	int findIfWordContainOtherChar();
+
 	int findIfWordContainOnlySameAmountOfLetter();
+	void printFourthDico();
 };
 
 #endif
