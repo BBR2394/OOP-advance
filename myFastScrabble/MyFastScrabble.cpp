@@ -2,7 +2,7 @@
 * @Author: Baptiste Bertrand-Rapello
 * @Date:   2020-05-01 14:56:56
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-05-06 10:55:50
+* @Last Modified time: 2020-05-07 12:23:05
 */
 
 #include "MyFastScrabble.h"
@@ -171,6 +171,7 @@ void MyFastScrabble::printFourthDico()
 int MyFastScrabble::printResultat()
 {
 	int c = 0;
+	//ajouter un sort
 	std::list<std::string>::iterator it = _dicoWithEqualNumOfChar.begin();
 	if (_dicoWithEqualNumOfChar.size() <=0 )
 		return 1;
@@ -218,7 +219,8 @@ void MyFastScrabble::printDico()
 		c++;
 	}
 	//le dico est il trié de base ?
-	mydico.sort();
+	//mydico.sort();
+	//-> on le trie seulement le dernier a la fin
 	
 	/* si c'est un deque
 	while (c < mydico.size())

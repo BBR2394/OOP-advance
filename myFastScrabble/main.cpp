@@ -2,10 +2,11 @@
 * @Author: Baptiste Bertrand-Rapello
 * @Date:   2020-05-01 14:56:46
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-05-06 10:56:39
+* @Last Modified time: 2020-05-07 12:29:09
 */
 
 #include <iostream>
+#include <ctime>
 
 #include "MyFastScrabble.h"
 
@@ -62,8 +63,13 @@ std::string getAnagramTofind()
 
 int work(MyFastScrabble & mfs)
 {
+	std::time_t result = std::time(nullptr);
+	std::cout << std::asctime(std::localtime(&result)) << result << " seconds since the Epoch\n";
+	std::cout << "ici ca commence" << std::endl;
 	std::string anagram = "";
 	anagram = getAnagramTofind();
+	result = std::time(nullptr);
+	std::cout << std::asctime(std::localtime(&result)) << result << " seconds since the Epoch\n";
 	mfs.initAnagram(anagram);
 	//mfs.initAnagram("itnavnel");
 	//mfs.initAnagram("irelacv");
@@ -83,6 +89,8 @@ int work(MyFastScrabble & mfs)
 
 	mfs.findIfWordContainOnlySameAmountOfLetter();
 	std::cout << "Resultat : " << std::endl;
+	result = std::time(nullptr);
+	std::cout << std::asctime(std::localtime(&result)) << result << " seconds since the Epoch\n";
 	return mfs.printResultat();
 
 	//mfs.printFourthDico();
