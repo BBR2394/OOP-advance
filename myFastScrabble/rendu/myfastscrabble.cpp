@@ -208,7 +208,7 @@ char set_lower_case(char c)
 
 bool my_comparaison_function(const std::string& first, const std::string& second)
 {
-	int i = 0;
+	long unsigned int i = 0;
 	char a = 0;
 	char b = 0;
 	while (i < first.length() && i < second.length())
