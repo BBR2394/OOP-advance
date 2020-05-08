@@ -73,7 +73,7 @@ char MyFastScrabble::setLowerCase(char c)
 int MyFastScrabble::initAnagram(std::string anagram)
 {
 	_anagram = anagram;
-	for (int i = 0; i < anagram.size(); i++)
+	for (long unsigned int i = 0; i < anagram.size(); i++)
 	{
 		_anagramSet.insert(setLowerCase(anagram[i]));
 		_anagramMultiSet.insert(setLowerCase(anagram[i]));
