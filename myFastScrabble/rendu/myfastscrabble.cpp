@@ -2,7 +2,7 @@
 * @Author: Baptiste Bertrand-Rapello
 * @Date:   2020-05-01 14:56:56
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-05-08 10:40:26
+* @Last Modified time: 2020-05-08 11:28:15
 */
 
 
@@ -77,7 +77,6 @@ int MyFastScrabble::initAnagram(std::string anagram)
 	{
 		_anagramSet.insert(setLowerCase(anagram[i]));
 		_anagramMultiSet.insert(setLowerCase(anagram[i]));
-		//std::cout << "anagram [" << i << "] : " << anagram[i] << " slc " << setLowerCase(anagram[i]) << std::endl;
 	}
 	return 0;
 }
@@ -105,12 +104,10 @@ int MyFastScrabble::addWordInDico(std::string newWord)
 /* ici on RESET */
 void MyFastScrabble::updateDico()
 {
-	//std::cout <<"Mise a jour du dico avant : " << mydico.size() << " save : " << _saveMydico.size() << std::endl;
 	mydico = _saveMydico;
 	_anagramSet.clear();
 	_anagramMultiSet.clear();
 	_dicoWithEqualNumOfChar.clear();
-	//std::cout <<"Mise a jour du dico apres : " << mydico.size() << " save : " << _saveMydico.size() << std::endl;
 }
 
 /* shrink according tot the size */
@@ -120,7 +117,6 @@ void MyFastScrabble::shrinkDico()
 	while (mydico.size() > 0)
 	{
 		word = mydico.front();
-		//std::cout << "word = " << word << std::endl;
 		if (word.size() == _anagram.size())
 			_dicoAccordingAnagram.push_back(word);
 		mydico.pop_front();
@@ -136,7 +132,6 @@ int MyFastScrabble::findIfWordContainOtherChar()
 	{
 		word = _dicoAccordingAnagram.front();
 		wordSave = word;
-		//std::cout << "word to compute in third dico = " << word << "  " << wordSave << std::endl;
 		while (word.size() > 0) {
 			ch = word.back();
 			ch = setLowerCase(ch);
@@ -148,15 +143,9 @@ int MyFastScrabble::findIfWordContainOtherChar()
 		}
 		if (word.size() == 0){
 				_dicoaccordingExactLetterAndAnagram.push_back(wordSave);
-				// std::cout << "word added in third dico = " << wordSave << std::endl;
 			}
-		// else{
-		// 	std::cout << "word NOT added in third dico = " << wordSave << std::endl;
-		// }
 		_dicoAccordingAnagram.pop_front();
-		//usleep(10000);
 	}
-	//std::cout << "size of the third dico : " << _dicoaccordingExactLetterAndAnagram.size() << std::endl;
 	return 0;
 }
 //third dico to pop : _dicoaccordingExactLetterAndAnagram
@@ -169,13 +158,11 @@ int MyFastScrabble::findIfWordContainOnlySameAmountOfLetter()
 	int cOne = 0;
 	int cTwo = 0;
 	std::set<char>::iterator itSet = _anagramSet.begin();
-	//std::multiset<char>::iterator itMSet = _anagramMultiSet.begin();
-	//char 	ch = '\0';
+
 	while (_dicoaccordingExactLetterAndAnagram.size() > 0)
 	{
 		word = _dicoaccordingExactLetterAndAnagram.front();
 		wordSave = word;
-		//std::cout << "word to compute in fourth steap " << word << std::endl;
 		while (word.size() > 0)
 		{
 			wordMSet.insert(setLowerCase(word.back()));
@@ -185,7 +172,6 @@ int MyFastScrabble::findIfWordContainOnlySameAmountOfLetter()
 		{
 			cOne = _anagramMultiSet.count(*itSet);
 			cTwo = wordMSet.count(*itSet);
-			//std::cout << "for letter : " << *itSet << " : cone = " << cOne << " and cTwo = " << cTwo << std::endl;
 			if (cOne != cTwo)
 				break;
 			itSet++;
@@ -197,7 +183,6 @@ int MyFastScrabble::findIfWordContainOnlySameAmountOfLetter()
 		wordMSet.clear();
 		_dicoaccordingExactLetterAndAnagram.pop_front();
 	}
-	//std::cout << "size of the fourth dico : " << _dicoWithEqualNumOfChar.size() << std::endl;
 	return 0;
 }
 
@@ -214,10 +199,37 @@ void MyFastScrabble::printFourthDico()
 	}
 }
 
+char set_lower_case(char c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return c + 32;
+	return c;
+}
+
+bool my_comparaison_function(const std::string& first, const std::string& second)
+{
+	int i = 0;
+	char a = 0;
+	char b = 0;
+	while (i < first.length() && i < second.length())
+	{
+		a = set_lower_case(first[i]);
+		b = set_lower_case(second[i]);
+		if (a < b)
+			return true;
+		else if (a > b)
+			return false;
+		i++;
+	}
+	return first.length() < second.length();
+}
+
 int MyFastScrabble::printResultat()
 {
 	int c = 0;
 	//ajouter un sort
+	//_dicoWithEqualNumOfChar.sort(my_comparaison_function);
+	_dicoWithEqualNumOfChar.sort();
 	std::list<std::string>::iterator it = _dicoWithEqualNumOfChar.begin();
 	if (_dicoWithEqualNumOfChar.size() <=0 )
 		return 1;
@@ -351,12 +363,10 @@ int work(MyFastScrabble & mfs)
 {
 	std::string anagram = "";
 	anagram = getAnagramTofind();
-	//result = std::time(nullptr);
 	mfs.initAnagram(anagram);
 	mfs.shrinkDico();
 	mfs.findIfWordContainOtherChar();
 	mfs.findIfWordContainOnlySameAmountOfLetter();
-	//result = std::time(nullptr);
 	return mfs.printResultat();
 }
 
