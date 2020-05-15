@@ -1,0 +1,10 @@
+here is where the magik happen !
+here i will start to mine
+le temps est a : 1588164913 et ca fait : 10
+generation final du token
+***)29DRn$O!,=gr>&/WOP!0atIL/+5VkSb***
+***)29DRn$O!,=gr>&/WOP!0atIL/+5VkSb-BBR-CC1.0-1588164913-0F0F0F***
+le token tu my miner
+[36mThe final token is : [37m[43m)29DRn$O!,=gr>&/WOP!0atIL/+5VkSb-BBR-CC1.0-1588164913-0F0F0F[0m
+et le CheckOption : 1
+Starting benchmark...
