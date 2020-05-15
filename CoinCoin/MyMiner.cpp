@@ -20,8 +20,8 @@ int MyMiner::mine(const CheckOption &opt)
 {
 	std::cout << "here i will start to mine" << std::endl;
 	_tkn = new Token("BBR", "CC1.0");
-	_miner = new ThrdOSSLMiner();
-	//_miner = new OSSLMiner();
+	//_miner = new ThrdOSSLMiner();
+	_miner = new OSSLMiner();
 	//FakeMiner *fkminer = new FakeMiner();
 
 	std::cout << "le token tu my miner\n" << *_tkn << "et le CheckOption : " << opt.getOptionZ() << std::endl;
