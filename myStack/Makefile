@@ -1,10 +1,9 @@
 
 CXX		    =	g++
-CXXFLAGS	=	-Wall -Werror
+CXXFLAGS	=	
 
 SRC	=	my_main.cpp			\
 		mychainedstack.cpp
-		
 
 OBJ	=	$(SRC:.cpp=.o)
 
