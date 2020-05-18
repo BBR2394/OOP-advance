@@ -21,6 +21,8 @@ private:
 public:
 	int run();
 	int listFile();
+	int listFileTD();
+
 
 };
 

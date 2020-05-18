@@ -2,11 +2,12 @@
 * @Author: Baptiste Bertrand-Rapello
 * @Date:   2020-05-11 14:45:47
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-05-18 00:00:04
+* @Last Modified time: 2020-05-18 13:32:45
 */
 
 
 #include <fstream>
+#include <filesystem>
 #include "MiniDirList.hpp"
 
 MiniDirList::MiniDirList() : _fileList("Bonjour\n")
@@ -50,6 +51,20 @@ int MiniDirList::listFile()
 	}
 	std::cout << "size : " << _fileList.size() << std::endl;
 
+}
+
+int MiniDirList::listFileTD()
+{
+	std::string path = "./";
+	std::string http_dirlist="<b>Index of " + path + "</b><br><br>";
+
+	for (const auto & entry : std::filesystem::directory_iterator(path))
+	{
+		std::string fpath = entry.path();
+		std::uintmax_t size = boost::filesystem::file_size(entry.path());
+		http_dirlist+=" &bull; <b>" + fpath + "</b> " + std::to_string(size) + " B<br>";
+	}
+	std::cout << http_dirlist << std::endl;
 }
 
 int MiniDirList::run()
