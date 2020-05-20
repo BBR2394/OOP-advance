@@ -19,7 +19,7 @@ private:
 	void printCoin(int rank,  bool print, int minimumToPrint);
 
 public:
-	void Mine(Token *);
+	void Mine(Token *, const Option &);
 	void BenchMiner(Token *);
 };
 

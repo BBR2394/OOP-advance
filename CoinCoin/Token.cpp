@@ -54,6 +54,11 @@ void Token::setTrigram(std::string newTriOwn)
 	_triOwn = newTriOwn;
 }
 
+inline void Token::assembleToken()
+{
+	_token = _nonce->getNonce() + _partUnchange;
+}
+
 void Token::generateToken()
 {
 	_partUnchange = '-' + _triOwn + '-' + _proto + '-' + _strTime + '-' + _reserved;
@@ -65,7 +70,8 @@ void Token::generateToken()
 	_nonce = new Nonce;
 	_nonce->genNonce();
 	std::cout << "la je genere le token " << std::endl;
-	_token = _nonce->getNonce() + _partUnchange;
+	this->assembleToken();
+	//_token = _nonce->getNonce() + _partUnchange;
 	std::cout << "generation final du token : " << _nonce->getNonce().c_str() << std::endl;
 	std::strncpy (this->_token_c_str, _nonce->getNonce().c_str(), _nonce->getNonce().size());
 	std::cout << "1>" << this->_token_c_str << "***" << std::endl;
@@ -101,7 +107,8 @@ int Token::updateToken()
 {
 	_nonce->updateNonce();
 
-	_token = _nonce->getNonce() + _partUnchange;
+	this->assembleToken();
+	//_token = _nonce->getNonce() + _partUnchange;
 
 	//std::cout << "mise a jour du token" << _token << std::endl;
 

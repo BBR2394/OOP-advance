@@ -7,6 +7,7 @@
 #include "ThrdOSSLMiner.h"
 #include "Token.h"
 #include "CheckOption.h"
+#include "Option.hpp"
 
 class MyMiner
 {
@@ -18,6 +19,8 @@ private:
 	int _c;
 	AMiner *_miner;
 	Token *_tkn;
+	Option _opt;
+	void setOption(const CheckOption &);
 
 public:
 	int mine(const CheckOption &);

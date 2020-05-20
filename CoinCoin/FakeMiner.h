@@ -15,7 +15,7 @@ private:
 	int init();
 
 public:
-	void Mine(Token *);
+	void Mine(Token *, const Option &);
 	void BenchMiner(Token *);
 };
 

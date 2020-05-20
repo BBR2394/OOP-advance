@@ -15,7 +15,7 @@ Nonce::~Nonce()
 }
 
 //a ne pas laisser comme ca
-int Nonce::genRand()
+inline int Nonce::genRand()
 {
 	int v1 = rand() % 95;
 	// std::cout << "\x1B[43m\x1B[94mRandim number : " << "\x1B[0m\x1B[91m  " << std::hex << v1 << "\x1B[0m" << std::endl;

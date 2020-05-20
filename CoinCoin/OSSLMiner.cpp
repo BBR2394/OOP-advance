@@ -5,51 +5,13 @@
 
 OSSLMiner::OSSLMiner()
 {
-	// _sizeNonce = 32;
-	// this->init();
+
 }
 
 OSSLMiner::~OSSLMiner()
 {
 	
 }
-
-// void OSSLMiner::Mine(Token * to)
-// {
-// 	unsigned char ibuf[] = "Hell\0";
-// 	unsigned char *shaOne = NULL;
-
-// 	shaOne = new unsigned char[60];
-
-// 	std::cout << "au debut du miner : " << to->getToken() << std::endl;
-// 	std::cout << "au debut du miner : " << to->getTokenUC() <<  "FIN" <<std::endl;
-// 	shaOne = SHA1(ibuf, (size_t)4, shaOne);
-// 	// shaOne = SHA1((unsigned char *)to->getTokenUC(), (size_t)60, shaOne);
-	
-// 	std::cout << "resultat du sha 1";
-
-// 	for (int i = 0; i < 20; i++)
-// 	{
-// 		std::cout << std::hex << (int)shaOne[i];
-// 	}
-
-// 	//a boucler
-// 	// while (shaOne[0] != 99) 
-// 	// {
-// 	// 	usleep(1000000);
-// 	// 	to->updateToken();
-// 	// 	std::cout << "au milieux du miner : " << to->getTokenUC() <<  "FIN" <<std::endl;
-// 	// 	shaOne = SHA1((unsigned char *)to->getTokenUC(), (size_t)60, shaOne);
-// 	// 	for (int i = 0; i < 20; i++)
-// 	// 	{
-// 	// 		std::cout << std::hex << (int)shaOne[i];
-// 	// 		// std::cout << std::hex << (char)shaOne[i];
-// 	// 	}
-// 	// 	std::cout << std::endl;
-// 	// }
-
-// 	std::cout << std::endl;
-// }
 
 int OSSLMiner::isGoodCoin(unsigned char* subcoin, int rank, bool print, int minimumToPrint)
 {
@@ -228,7 +190,7 @@ void OSSLMiner::BenchMiner(Token * to) //rajouter la "duration" non ?
 	std::cout << "i have compute : " << counterTotalWorked << " token " << std::endl;
 }
 
-void OSSLMiner::Mine(Token * to)
+void OSSLMiner::Mine(Token * to, const Option &opt)
 {
 	unsigned char	ibuf[] = "Hello";
 	unsigned char	*shaOne = NULL;
@@ -243,7 +205,7 @@ void OSSLMiner::Mine(Token * to)
 	int 			i = 0;
 	long			counter = 0;
 	long			individualCounter[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
-	int 			minToPrint = 6;
+	int 			minToPrint = opt.getMiniToPrint();
 
 	while (counter < 13000000000)
 	{

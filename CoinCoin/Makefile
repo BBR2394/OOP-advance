@@ -10,6 +10,7 @@ SRC	=	main.cpp			\
 		Nonce.cpp			\
 		OSSLMiner.cpp		\
 		FakeMiner.cpp		\
+		Option.cpp			\
 		ThrdOSSLMiner.cpp
 
 OBJ	=	$(SRC:.cpp=.o)

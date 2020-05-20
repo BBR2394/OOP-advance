@@ -16,7 +16,7 @@ void FakeMiner::BenchMiner(Token *)
 	std::cout << "nothin done here yet" << std::endl;
 }
 
-void FakeMiner::Mine(Token *)
+void FakeMiner::Mine(Token *to, const Option &opt)
 {
 	unsigned char	ibuf[] = "Hell";
 	unsigned char bogdanCoin[] = "i%u@>^J;\\%-k5T|v,w1Tp7=,=e|~`>a!-BCO-CC1.0-1587572545-0f0f0f";

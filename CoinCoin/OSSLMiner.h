@@ -29,7 +29,7 @@ private:
 	void printBenchmark(int typeCoin, int elapsedTime) const;
 	void printBenchmarkMoyenne(int, long*);
 public:
-	void Mine(Token *);
+	void Mine(Token *, const Option &);
 	void BenchMiner(Token *);
 };
 
