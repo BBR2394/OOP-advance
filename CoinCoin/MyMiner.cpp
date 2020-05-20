@@ -30,6 +30,11 @@ int MyMiner::mine(const CheckOption &opt)
 		_miner->BenchMiner(_tkn);
 	}
 	else {
+		if (opt.getOptionT() == true) {
+			delete _tkn;
+			_tkn = new Token(opt.getTriOptionGiven(), "CC1.0");
+			std::cout << "le token avec le trigrame special : " << opt.getTriOptionGiven() << std::endl;
+		}
 		_miner->Mine(_tkn);
 	}
 	//fkminer->Mine(_tkn);

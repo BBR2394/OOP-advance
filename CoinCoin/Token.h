@@ -12,7 +12,10 @@ class Token
 {
 public:
 	Token();
-	Token(std::string to, std::string prt);	
+	Token(std::string to);
+	Token(std::string to, std::string prt);
+	/* the goal to this constructyor is for save not to use it as token yet */
+	Token(const Token &tkn);
 	~Token();
 
 private:
@@ -27,7 +30,7 @@ private:
 
 	int			_time;
 	std::string _strTime;
-	//std::string _nonce;
+	std::string _nonceStr;
 
 	void generateToken();
 	void genTime();

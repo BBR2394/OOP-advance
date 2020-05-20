@@ -10,11 +10,30 @@ Token::Token()
 	this->generateToken();
 }
 
+Token::Token(std::string to) : _triOwn(to)
+{
+	_proto = "CC1.0";
+	this->genTime();
+	_reserved = "0F0F0F";
+	this->generateToken();
+}
+
 Token::Token(std::string to, std::string prt) : _triOwn(to), _proto(prt)
 {
 	this->genTime();
 	_reserved = "0F0F0F";
 	this->generateToken();
+}
+
+/* the goal to this constructyor is for save not to use it as token yet */
+Token::Token(const Token &tkn)
+{
+	_triOwn = tkn._triOwn;
+	_proto = tkn._proto;
+	_reserved = tkn._reserved;
+	_token = tkn._token;
+	_nonce = NULL;
+	_nonceStr = tkn._nonce->getNonce();
 }
 
 Token::~Token()
