@@ -2,7 +2,7 @@
 * @Author: Baptiste Bertrand-Rapello
 * @Date:   2020-05-26 20:12:07
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-05-26 23:18:57
+* @Last Modified time: 2020-05-26 23:36:04
 */
 
 #include <iostream>
@@ -139,7 +139,18 @@ private:
 	}
 
 public:
-	void printResult(int level, unsigned char	*token, unsigned char	*coin)
+	// void printResult(int level, unsigned char	*token, unsigned char	*coin)
+	// {
+	// 	std::cout << _colorPrintTag[level] << "un " << level << " c " << _colorPrintTag[13] << token  << " " << _colorPrintTag.back();
+	// 	for (int i = 0; i < 20; i++)
+	// 	{
+	// 		std::cout << std::hex << (int)coin[i];
+	// 	}
+	// 	std::cout << _colorPrintTag[0] << std::endl;
+	// };
+
+	template<class typeA, class typeB, class typeC>
+	void printResult(typeA level, typeB token, typeC coin)
 	{
 		std::cout << _colorPrintTag[level] << "un " << level << " c " << _colorPrintTag[13] << token  << " " << _colorPrintTag.back();
 		for (int i = 0; i < 20; i++)
@@ -218,6 +229,7 @@ public:
 		std::cout << "\x1b[0m" << std::endl;
 	}
 
+	//i am not very sure for this one to set as inline. if it could help
 	inline std::string generateTime()
 	{
 		time_t	theTime;
@@ -227,6 +239,11 @@ public:
 		strTime = std::to_string(theTime);
 		//std::cout << "le temps est a : " << strTime << " et ca fait : " << strTime.size() << std::endl;
 		return strTime;
+	}
+
+	inline int genRandNineFive()
+	{
+		return rand() % 95;
 	}
 
 	void generateToken()
@@ -240,7 +257,7 @@ public:
 	
 		for (int i = 0; i < 32; i++)
 		{
-			numRand = (rand() % 95) + 32;
+			numRand = (genRandNineFive()) + 32;
 			//std::cout << " i = " << i << "=" << numRand << std::endl;
 			_token[i] = numRand;
 		}
@@ -254,7 +271,7 @@ public:
 
 	void updateToken()
 	{
-		unsigned char numRand =  (rand() % 95) + 32;
+		unsigned char numRand =  (genRandNineFive()) + 32;
 		//int posRand = rand() % 32;
 		//std::cout << "pos rand " << posRand << "numrand =  " << numRand << " et le rand " << rand() << std::endl;
 
@@ -267,6 +284,7 @@ public:
 		//this->printToken();
 	}
 
+	//function JustOne
 	void updateJustOne()
 	{
 		unsigned char numRand =  (rand() % 95) + 32;
@@ -343,6 +361,7 @@ public:
 		std::cout << "i have compute : " << c << " tokens " << std::endl;
 	};
 
+	//function JustOne
 	void MineBis(const CheckOption &opt)
 	{
 		std::cout << "dans le  mine just one" << std::endl;
@@ -357,6 +376,7 @@ public:
 		}
 	};
 	
+	//function JustOne
 	void BenchMinerBis()
 	{
 		std::cout << "dans le bench mine just one" << std::endl;
