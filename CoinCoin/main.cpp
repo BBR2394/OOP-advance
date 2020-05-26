@@ -2,7 +2,7 @@
 * @Author: Baptiste Bertrand-Rapello
 * @Date:   2020-04-20 17:08:14
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-04-26 22:00:12
+* @Last Modified time: 2020-05-22 15:21:24
 */
 
 #include <iostream>
@@ -16,7 +16,13 @@ int main(int ac, char **av)
 	CheckOption chckOpt;
 
 	std::cout << "here is where the magik happen !" << std::endl;
-	chckOpt.checkOptions(ac, av);
-
+	try {
+		chckOpt.checkOptions(ac, av);
+	}
+	catch(std::string r)
+	{
+		std::cout << r << std::endl;
+		return -1;
+	}
 	mm.mine(chckOpt);
 }

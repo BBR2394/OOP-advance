@@ -130,6 +130,31 @@ int Token::updateToken()
 	return 0;
 }
 
+int Token::addResult(char *res)
+{
+	std::cout << "dans add result" << std::endl;
+	this->_CoinResult = new char[20];
+	this->_CoinResult[0] = 'b';
+	this->_CoinResult[1] = '\0';
+	//this->_CoinResult = std::strncpy (this->_CoinResult, res, 20);
+	return 0;
+}
+/*
+** Oublie et rappel
+** le resultat du sha est certe un unsigned char *
+** mais ce sont des valeur numerique qu'il contient
+** donc pares si je veux l'afficher il faut que je boucle comme un tableau d'int
+** et comme dans l'autre fonction que j'ai faite qui fait ca ... (-_-')
+*/
+
+char *Token::getResultCoin() const
+{
+	//doesnt work
+	std::cout << "dans get result coin"<< std::endl;
+	return this->_CoinResult;
+	//return "Bonjour\n";
+}
+
 std::string Token::getToken() const
 {
 	return _token;

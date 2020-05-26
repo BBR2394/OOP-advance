@@ -10,6 +10,13 @@ public:
 	SaveToken();
 	~SaveToken();
 
+private:
+	std::list<Token*> _tknSaved;
+
+public:
+	int addToken(Token *to, unsigned char *coin);
+	void printToken();
+
 };
 
 #endif

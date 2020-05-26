@@ -31,6 +31,8 @@ private:
 	int			_time;
 	std::string _strTime;
 	std::string _nonceStr;
+	//if we want to save the token
+	char *_CoinResult;
 
 	void generateToken();
 	void genTime();
@@ -43,6 +45,9 @@ public:
 	char * getTokenUC();
 	int updateToken();
 	std::string getToken() const;
+	//we can add the result in order to saved it
+	int addResult(char	*);
+	char *getResultCoin() const;
 
 };
 

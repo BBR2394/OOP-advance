@@ -2,17 +2,7 @@
 CXX		    =	g++
 CXXFLAGS	=	-std=c++11
 
-SRC	=	main.cpp			\
-		CheckOption.cpp		\
-		Token.cpp			\
-		MyMiner.cpp			\
-		Time.cpp			\
-		Nonce.cpp			\
-		OSSLMiner.cpp		\
-		FakeMiner.cpp		\
-		Option.cpp			\
-		ThrdOSSLMiner.cpp	\
-		SaveToken.cpp
+SRC	=	main.cpp			
 
 OBJ	=	$(SRC:.cpp=.o)
 

@@ -26,6 +26,11 @@ bool CheckOption::getOptionM() const
 	return _isOptM;
 }
 
+bool CheckOption::getOptionSave() const
+{
+	return _isOptSave;
+}
+
 std::string CheckOption::getTriOptionGiven() const
 {
 	return _trigramOption;
@@ -39,20 +44,23 @@ int CheckOption::getMinimumOptionGiven() const
 int CheckOption::setOptTrigram(char *opt)
 {
 	_trigramOption = opt;
+	if (_trigramOption.size() != 3)
+		throw std::string("invalid size for trigram : it must be Three character only\n-> an errore with the -t parameter");
 	return 0;
 }
 
-int CheckOption::setOptMinimum(char *opt)
+bool CheckOption::setOptMinimum(char *opt)
 {
 	try {
 		_minimumVal = std::stoi(opt);
-
+		return true;
 	}
 	catch(...)
 	{
-		std::cout << "Nan for the minimum option" << std::endl;
+		std::cout << "Not a numbern for the minimum coin parameter" << std::endl;
+		return false;
 	}
-	return 0;
+	return true;
 }
 
 /* it is really not the best way to check option, but i will improve it later */
@@ -82,7 +90,8 @@ int CheckOption::checkOptions(int ac, char** av)
 				{
 					if (i+1 >= ac)
 						throw std::string("input for parameter is invalid");
-					setOptMinimum(av[i+1]);
+					if (setOptMinimum(av[i+1]) == false)
+						throw std::string("-> an errore with the -m parameter");
 					_isOptM = true;
 					i++;
 				}

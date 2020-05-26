@@ -8,7 +8,7 @@
 #include <openssl/sha.h>
 
 #include "AMiner.h"
-
+#include "SaveToken.hpp"
 
 class OSSLMiner : public AMiner
 {
@@ -22,6 +22,7 @@ private:
 	// int 						_sizeNonce;
 
 	// int generateNonce();
+	SaveToken _saver;
 	int init();
 	int genRand();
 	int isGoodCoin(unsigned char* subcoin, int rank,  bool print, int minimumToPrint);

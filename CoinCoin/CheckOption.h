@@ -15,16 +15,19 @@ private:
 	bool _isOptZ;
 	bool _isOptM;
 	bool _isOptT;
+	bool _isOptSave;
 	std::string _trigramOption;
 	int _minimumVal;
 	int setOptTrigram(char *);
-	int setOptMinimum(char *);
+	bool setOptMinimum(char *);
+	bool setOptSave(char *);
 
 public:
 	int checkOptions(int, char**);
 	bool getOptionZ() const;
 	bool getOptionT() const;
 	bool getOptionM() const;
+	bool getOptionSave() const;
 	std::string getTriOptionGiven() const;
 	int getMinimumOptionGiven() const;
 };

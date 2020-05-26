@@ -207,24 +207,35 @@ void OSSLMiner::Mine(Token * to, const Option &opt)
 	long			individualCounter[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
 	int 			minToPrint = opt.getMiniToPrint();
 
-	while (counter < 13000000000)
+	while (counter < 200)
 	{
 		subcoin = SHA1((unsigned char*)to->getTokenUC(), (size_t)60, subcoin);
 		ret = this->isGoodCoin(subcoin, i, true, minToPrint);
-		if (ret > 0)
-			individualCounter[ret-1] += 1;
-		if (ret >= minToPrint)
+		// if (ret > 0)
+		// 	individualCounter[ret-1] += 1;
+		if (ret >= minToPrint && ret >= 1)
 		{
 			std::cout << "token corespondant : " << to->getTokenUC();
 			std::cout << " elapse time : " << tm.getCurentTime() - beginTime << " seconds " << std::endl;
 			i += 1;
+			if (opt.getIfSave())
+			{
+				_saver.addToken(to, subcoin);
+				std::cout << "j'ai sauvé : " << std::endl;;
+				to->getResultCoin();
+				std::cout << "fin" << std::endl;
+				//this->printCoin((unsigned char *)to->getResultCoin(), 0);
+				std::cout << std::endl;
+			}
+
 		}
 		counter += 1;
 		to->updateToken();
 	}
+	_saver.printToken();
 
-	for (int i = 0; i < 12; i++)
-	{
-		std::cout << std::dec << "il y a eu " << individualCounter[i] << " pour un token de " << i+1 << " c " << std::endl;
-	}
+	// for (int i = 0; i < 12; i++)
+	// {
+	// 	std::cout << std::dec << "il y a eu " << individualCounter[i] << " pour un token de " << i+1 << " c " << std::endl;
+	// }
 }
