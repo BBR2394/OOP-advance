@@ -2,7 +2,7 @@
 * @Author: Baptiste Bertrand-Rapello
 * @Date:   2020-05-26 20:12:07
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-05-26 23:07:47
+* @Last Modified time: 2020-05-26 23:18:57
 */
 
 #include <iostream>
@@ -317,7 +317,7 @@ public:
 		int minimum = opt.getMinimumOptionGiven();
 		std::cout << "dans le mine du MinerOSSL" << std::endl;
 		
-		for (int c = 0; c < 1000000000; c++) {
+		while (true) {
 			_subcoin = SHA1(_token, (size_t)60, _subcoin);
 			this->checkCoin(minimum);
 			this->updateToken();
