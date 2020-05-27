@@ -2,7 +2,7 @@
 * @Author: Baptiste Bertrand-Rapello
 * @Date:   2020-05-26 20:12:07
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-05-27 12:23:27
+* @Last Modified time: 2020-05-27 14:11:59
 */
 
 //#include <unistd.h>
@@ -360,12 +360,21 @@ public:
 	{
 		int minimum = opt.getMinimumOptionGiven();
 		std::cout << "dans le mine du MinerOSSL" << std::endl;
-		
+		long c = 0;
 		while (true) {
 			_subcoin = SHA1(_token, (size_t)60, _subcoin);
 			this->checkCoin(minimum);
 			this->updateToken();
 			//this->updateJustOne();
+			#ifdef __APPLE__
+			c++;
+			if (c >= 10000000)
+			{
+				std::cout << "rand MAJ on mac os" << std::endl;
+				srand (time(NULL)*1000);
+				c = 0;
+			}
+			#endif
 		}
 	};
 	
