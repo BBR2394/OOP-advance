@@ -2,13 +2,16 @@
 * @Author: Baptiste Bertrand-Rapello
 * @Date:   2020-05-26 20:12:07
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-05-26 23:36:04
+* @Last Modified time: 2020-05-27 12:23:27
 */
+
+//#include <unistd.h>
 
 #include <iostream>
 #include <cstdlib>
 #include <openssl/sha.h>
 #include <vector>
+#include <iomanip> 
 
 class CheckOption
 {
@@ -155,7 +158,7 @@ public:
 		std::cout << _colorPrintTag[level] << "un " << level << " c " << _colorPrintTag[13] << token  << " " << _colorPrintTag.back();
 		for (int i = 0; i < 20; i++)
 		{
-			std::cout << std::hex << (int)coin[i];
+			std::cout << std::setfill ('0') << std::setw (2) << std::hex << (int)coin[i];
 		}
 		std::cout << _colorPrintTag[0] << std::endl;
 	};
@@ -246,11 +249,27 @@ public:
 		return rand() % 95;
 	}
 
+	inline long genRandNineFiveLong()
+	{
+		return lrand48() % 95;
+	}
+
+	inline int genRandMacOS()
+	{
+		//std::cout << "dans le gen mac os " << std::endl;
+		return random() % 95;
+	}
+
 	void generateToken()
 	{
 		unsigned char numRand = 0;
+		#ifdef __APPLE__
+		char *state;
+		state = (char*)malloc(8*sizeof(char));
+		initstate(128, state, 8);
+		#else
 		srand (time(NULL)*1000);
-
+		#endif
 		std::string strTm = this->generateTime();
 		_partUnchanged = '-' + _trigram + '-' + _proto + '-' + strTm +'-' + _reserved;
 		std::cout << "partie non changeante " << _partUnchanged << std::endl;
@@ -271,10 +290,16 @@ public:
 
 	void updateToken()
 	{
+		#if __APPLE__
+		unsigned char numRand =  (genRandMacOS()) + 32;
+		#else
 		unsigned char numRand =  (genRandNineFive()) + 32;
+		#endif
 		//int posRand = rand() % 32;
 		//std::cout << "pos rand " << posRand << "numrand =  " << numRand << " et le rand " << rand() << std::endl;
-
+		
+		//sleep(10);
+		
 		for (int i = 0; i < 32; i++)
 		{
 			numRand =  (rand() % 95) + 32;
@@ -304,7 +329,7 @@ public:
 		std::cout << "\x1b[0m" << std::endl;
 	}
 
-	void checkCoin(int min=1)
+	int checkCoin(int min=1)
 	{
 		int nbC = 0;
 		for (int i = 0; i < 32; i++)
@@ -328,6 +353,7 @@ public:
 		{
 			_printer.printResult(nbC, _token, _subcoin);
 		}
+		return nbC;
 	}
 
 	void Mine(const CheckOption &opt)
@@ -343,22 +369,49 @@ public:
 		}
 	};
 	
+	void printBenchMark(int elapsedTime)
+	{
+		float hourPrevition = 0.0;
+		std::cout << "6c (subcoin) mined in " << elapsedTime << " s\n*** Mining projections ***\n";
+		hourPrevition = (float)elapsedTime / 60.0 / 60.0;
+		std::cout.precision(2);
+		std::cout << "6c (subcoin)\t" << elapsedTime << " s\t\t(" << std::fixed << hourPrevition << " h)\n";
+		hourPrevition = ((float)elapsedTime*16.0) /60.0/60.0;
+		std::cout << "7c (coin)\t" << elapsedTime*16 << " s\t\t(" << hourPrevition << " h)\n";
+		hourPrevition = ((float)elapsedTime*16.0*16.0)/60.0/60.0;
+		std::cout << "8c (hexcoin)\t" << elapsedTime*16*16 << " s\t\t(" << hourPrevition << " h)\n";
+		hourPrevition = ((float)elapsedTime*16.0*16.0*16.0)/60.0/60.0;
+		std::cout << "9c (arkenston)\t" << elapsedTime*16*16*16 << " s\t\t(" << hourPrevition << " h)" << std::endl;
+		hourPrevition = ((float)elapsedTime*16.0*16.0*16.0*16.0)/60.0/60.0;
+		std::cout << "10c (Blackstar)\t" << elapsedTime*16*16*16 << " s\t\t(" << hourPrevition << " h)" << std::endl;
+	}
+
 	void BenchMiner()
 	{
 		std::string currentTime = generateTime();
 		int timeSecond = std::stoi(currentTime);
 		int start = timeSecond;
+		long individualCounter[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
+		int rtrNbC = 0;
 		std::cout << "\x1b[31mici je vais faire le bench : " << currentTime << " int : " << timeSecond << "\x1b[0m" << std::endl;
 		int c = 0;
-		while (start + 10 > timeSecond) {
+		while (individualCounter[6] <= 0 && start + 58 > timeSecond) {
 			_subcoin = SHA1(_token, (size_t)60, _subcoin);
 			this->updateToken();
 			//this->updateJustOne();
+			rtrNbC = this->checkCoin(42);
+			individualCounter[rtrNbC] += 1;
 			currentTime = generateTime();
 			timeSecond = std::stoi(currentTime);
 			c++;
 		}
-		std::cout << "i have compute : " << c << " tokens " << std::endl;
+		std::cout << "i have compute : " << c << " tokens in : " << timeSecond - start << "seconde" << std::endl;
+		this->printBenchMark(timeSecond - start);
+		//this for is to print the individual counter
+		// for (int i = 0; i < 12; i++)
+		// {
+		// 	std::cout << "nb c : " << i << " computed number : " << individualCounter[i] << std::endl;
+		// }
 	};
 
 	//function JustOne
