@@ -2,7 +2,7 @@
 * @Author: Baptiste Bertrand-Rapello
 * @Date:   2020-05-26 20:12:07
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-05-27 14:11:59
+* @Last Modified time: 2020-05-28 09:49:38
 */
 
 //#include <unistd.h>
@@ -23,6 +23,7 @@ private:
 	bool _isOptZ;
 	bool _isOptM;
 	bool _isOptT;
+	bool _isOptP;
 	bool _isOptSave;
 	bool _isOptOne;
 	std::string _trigramOption;
@@ -47,7 +48,6 @@ private:
 		}
 		return true;
 	};
-	bool setOptSave(char *);
 
 public:
 	
@@ -67,6 +67,8 @@ public:
 				_isOptZ = true;
 			if (av[i][0] == '-' && av[i][1] == '1' && av[i][2] == '\0')
 				_isOptOne = true;
+			if (av[i][0] == '-' && av[i][1] == 'P' && av[i][2] == '\0')
+				_isOptP = true;
 			if (av[i][0] == '-' && av[i][1] == 't' && av[i][2] == '\0')
 				{
 					if (i+1 >= ac)
@@ -101,6 +103,9 @@ public:
 
 	bool getOptionM() const
 	{ return _isOptM; };
+
+	bool getOptionP() const
+	{ return _isOptP; };
 
 	bool getOptionSave() const { return _isOptSave;};
 	std::string getTriOptionGiven() const { return _trigramOption; };
@@ -203,13 +208,13 @@ private:
 	unsigned char	*_subcoin = NULL;
 
 	MyPrinter _printer;
-	//std::string _firstToken;
 
 	void initToken()
 	{
 		for (int i = 0; i < 60; i++)
 		{
 			//66 = B in ascii
+			//it is just to be sure to be set at specific value
 			_token[i] = 66;
 		}
 	};
@@ -240,7 +245,6 @@ public:
 
 		time(&theTime);
 		strTime = std::to_string(theTime);
-		//std::cout << "le temps est a : " << strTime << " et ca fait : " << strTime.size() << std::endl;
 		return strTime;
 	}
 
@@ -254,9 +258,8 @@ public:
 		return lrand48() % 95;
 	}
 
-	inline int genRandMacOS()
+	int genRandMacOS()
 	{
-		//std::cout << "dans le gen mac os " << std::endl;
 		return random() % 95;
 	}
 
@@ -272,12 +275,10 @@ public:
 		#endif
 		std::string strTm = this->generateTime();
 		_partUnchanged = '-' + _trigram + '-' + _proto + '-' + strTm +'-' + _reserved;
-		std::cout << "partie non changeante " << _partUnchanged << std::endl;
 	
 		for (int i = 0; i < 32; i++)
 		{
 			numRand = (genRandNineFive()) + 32;
-			//std::cout << " i = " << i << "=" << numRand << std::endl;
 			_token[i] = numRand;
 		}
 		int c = 0;
@@ -285,7 +286,6 @@ public:
 		{
 			_token[i] = _partUnchanged[c++];
 		}
-		this->printToken();
 	};
 
 	void updateToken()
@@ -295,18 +295,12 @@ public:
 		#else
 		unsigned char numRand =  (genRandNineFive()) + 32;
 		#endif
-		//int posRand = rand() % 32;
-		//std::cout << "pos rand " << posRand << "numrand =  " << numRand << " et le rand " << rand() << std::endl;
-		
-		//sleep(10);
 		
 		for (int i = 0; i < 32; i++)
 		{
 			numRand =  (rand() % 95) + 32;
 			this->_token[i] = numRand;
 		}
-		//std::strncpy (this->_token, (char*)_nonce->getNonceUC(), 32)
-		//this->printToken();
 	}
 
 	//function JustOne
@@ -314,22 +308,20 @@ public:
 	{
 		unsigned char numRand =  (rand() % 95) + 32;
 		int posRand = rand() % 32;
-		//std::cout << std::dec << "pos rand " << posRand << " numrand =  " << (int)numRand << " et le rand " << rand() << std::endl;
 		this->_token[posRand] = numRand;
-		//this->printToken();
 	}
 
 	void printCoin()
 	{
-		std::cout << "\x1b[36mLe coin : \x1b[34m\x1b[43m";
+		/*std::cout << "\x1b[36mLe coin : \x1b[34m\x1b[43m";*/
 		for (int i = 0; i < 20; i++)
 		{
-			std::cout << _token[i];
+			std::cout << std::setfill ('0') << std::setw (2) << std::hex << (int)_subcoin[i];
 		}
-		std::cout << "\x1b[0m" << std::endl;
+		std::cout << std::endl;
 	}
 
-	int checkCoin(int min=1)
+	int checkCoin(int min=1, bool nicePrint=false)
 	{
 		int nbC = 0;
 		for (int i = 0; i < 32; i++)
@@ -340,9 +332,6 @@ public:
 			}
 			else if (_subcoin[i] > 191 && _subcoin[i] < 208)
 			{
-				//std::cout << "1C !" << std::endl;
-				//this->printCoin();
-				//std::cout << std::hex << (int)_subcoin[i] << std::endl;
 				nbC += 1;
 				break;
 			}
@@ -351,7 +340,15 @@ public:
 		}
 		if (nbC >= min)
 		{
-			_printer.printResult(nbC, _token, _subcoin);
+			/*
+			*i have a nice function to print the result
+			*however because we have to print only the coin...
+			* so i have another if for a better print with the option -P
+			*/
+			if (nicePrint)
+				_printer.printResult(nbC, _token, _subcoin);
+			else
+				printCoin();
 		}
 		return nbC;
 	}
@@ -359,22 +356,22 @@ public:
 	void Mine(const CheckOption &opt)
 	{
 		int minimum = opt.getMinimumOptionGiven();
-		std::cout << "dans le mine du MinerOSSL" << std::endl;
+		//std::cout << "dans le mine du MinerOSSL" << std::endl;
 		long c = 0;
 		while (true) {
 			_subcoin = SHA1(_token, (size_t)60, _subcoin);
-			this->checkCoin(minimum);
+			this->checkCoin(minimum, opt.getOptionP());
 			this->updateToken();
-			//this->updateJustOne();
-			#ifdef __APPLE__
-			c++;
-			if (c >= 10000000)
-			{
-				std::cout << "rand MAJ on mac os" << std::endl;
-				srand (time(NULL)*1000);
-				c = 0;
-			}
-			#endif
+			// pour un pb specifique a mac os mais qui ne marche pas ...
+			// #ifdef __APPLE__
+			// c++;
+			// if (c >= 10000000)
+			// {
+			// 	std::cout << "rand MAJ on mac os" << std::endl;
+			// 	srand (time(NULL)*1000);
+			// 	c = 0;
+			// }
+			// #endif
 		}
 	};
 	
@@ -402,12 +399,11 @@ public:
 		int start = timeSecond;
 		long individualCounter[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
 		int rtrNbC = 0;
-		std::cout << "\x1b[31mici je vais faire le bench : " << currentTime << " int : " << timeSecond << "\x1b[0m" << std::endl;
+		//std::cout << "\x1b[31mici je vais faire le bench : " << currentTime << " int : " << timeSecond << "\x1b[0m" << std::endl;
 		int c = 0;
 		while (individualCounter[6] <= 0 && start + 58 > timeSecond) {
 			_subcoin = SHA1(_token, (size_t)60, _subcoin);
 			this->updateToken();
-			//this->updateJustOne();
 			rtrNbC = this->checkCoin(42);
 			individualCounter[rtrNbC] += 1;
 			currentTime = generateTime();
@@ -416,19 +412,20 @@ public:
 		}
 		std::cout << "i have compute : " << c << " tokens in : " << timeSecond - start << "seconde" << std::endl;
 		this->printBenchMark(timeSecond - start);
+
 		//this for is to print the individual counter
-		// for (int i = 0; i < 12; i++)
-		// {
-		// 	std::cout << "nb c : " << i << " computed number : " << individualCounter[i] << std::endl;
-		// }
+		/*for (int i = 0; i < 12; i++)
+		{
+			std::cout << "nb c : " << i << " computed number : " << individualCounter[i] << std::endl;
+		}*/
 	};
 
 	//function JustOne
 	void MineBis(const CheckOption &opt)
 	{
-		std::cout << "dans le  mine just one" << std::endl;
+		//std::cout << "dans le  mine just one" << std::endl;
 		int minimum = opt.getMinimumOptionGiven();
-		std::cout << "dans le mine du MinerOSSL" << std::endl;
+		//std::cout << "dans le mine du MinerOSSL" << std::endl;
 		
 		while (true) {
 			_subcoin = SHA1(_token, (size_t)60, _subcoin);
@@ -465,7 +462,7 @@ int main(int ac, char **av)
 	MinerOSSL *mm = new MinerOSSL();
 	CheckOption chckOpt;
 
-	std::cout << "here is where the magik happen !" << std::endl;
+	//std::cout << "here is where the magik happen !" << std::endl;
 	try {
 		chckOpt.checkOptions(ac, av);
 	}

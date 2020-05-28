@@ -207,7 +207,7 @@ void OSSLMiner::Mine(Token * to, const Option &opt)
 	long			individualCounter[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
 	int 			minToPrint = opt.getMiniToPrint();
 
-	while (counter < 200)
+	while (true)
 	{
 		subcoin = SHA1((unsigned char*)to->getTokenUC(), (size_t)60, subcoin);
 		ret = this->isGoodCoin(subcoin, i, true, minToPrint);

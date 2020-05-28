@@ -2,11 +2,11 @@
 CXX		    =	g++
 CXXFLAGS	=	-std=c++11
 
-SRC	=	main.cpp			
+SRC	=	coinminer.cpp			
 
 OBJ	=	$(SRC:.cpp=.o)
 
-NAME	=	coincoin
+NAME	=	coinminer
 
 LFLAGS	=	-L /usr/local/Cellar/openssl@1.1/ -lssl -lcrypto -I/usr/local/Cellar/openssl@1.1/1.1.1d/include
 
@@ -14,7 +14,7 @@ all: $(NAME)
 
 coin: fclean $(NAME)
 
-package: 
+packages: 
 	sudo apt-get install libssl
 
 $(NAME): $(OBJ) $(CFLAGS)
