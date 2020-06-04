@@ -2,7 +2,7 @@
 * @Author: Baptiste Bertrand-Rapello
 * @Date:   2020-05-26 20:12:07
 * @Last Modified by:   Baptiste Bertrand-Rapello
-* @Last Modified time: 2020-05-28 09:49:38
+* @Last Modified time: 2020-05-28 09:55:11
 */
 
 //#include <unistd.h>
@@ -16,7 +16,7 @@
 class CheckOption
 {
 public:
-	CheckOption() : _isOptZ(false), _isOptM(false), _isOptT(false), _isOptSave(false), _isOptOne(false), _trigramOption(""), _minimumVal(0) {};
+	CheckOption() : _isOptZ(false), _isOptM(false), _isOptT(false), _isOptSave(false), _isOptOne(false), _isOptP(false), _trigramOption(""), _minimumVal(0) {};
 	~CheckOption() {};
 
 private:
@@ -147,16 +147,6 @@ private:
 	}
 
 public:
-	// void printResult(int level, unsigned char	*token, unsigned char	*coin)
-	// {
-	// 	std::cout << _colorPrintTag[level] << "un " << level << " c " << _colorPrintTag[13] << token  << " " << _colorPrintTag.back();
-	// 	for (int i = 0; i < 20; i++)
-	// 	{
-	// 		std::cout << std::hex << (int)coin[i];
-	// 	}
-	// 	std::cout << _colorPrintTag[0] << std::endl;
-	// };
-
 	template<class typeA, class typeB, class typeC>
 	void printResult(typeA level, typeB token, typeC coin)
 	{
@@ -356,7 +346,7 @@ public:
 	void Mine(const CheckOption &opt)
 	{
 		int minimum = opt.getMinimumOptionGiven();
-		//std::cout << "dans le mine du MinerOSSL" << std::endl;
+
 		long c = 0;
 		while (true) {
 			_subcoin = SHA1(_token, (size_t)60, _subcoin);
