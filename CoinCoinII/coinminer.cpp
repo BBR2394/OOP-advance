@@ -158,6 +158,19 @@ public:
 		std::cout << _colorPrintTag[0] << std::endl;
 	};
 
+	/**
+	 * Ceci est l'affichage que j'aurais du rendre
+	 * j'avais rendu avec l'affichage 'pretty' (option -P)
+	 * et en voulant corriger j'ai failli me mettre dans la m**** car la clef c'est bien ce qu'on genere avec le trigrame
+	 * et pas le resultat avec les Xc ...
+	 * et je me suis trompé a cause du debut du sujet, et pourtant j'avais verifié mais verifier trop a la 'epitech' je trouve...
+	 */
+	template<class typeA, class typeB, class typeC>
+	void truePrintResult(typeA level, typeB token, typeC coin)
+	{
+		std::cout << token << std::endl;
+	};
+
 };
 
 class AMiner
@@ -338,7 +351,8 @@ public:
 			if (nicePrint)
 				_printer.printResult(nbC, _token, _subcoin);
 			else
-				printCoin();
+				_printer.truePrintResult(nbC, _token, _subcoin);
+				//printCoin();
 		}
 		return nbC;
 	}
